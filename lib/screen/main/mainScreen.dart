@@ -10,25 +10,25 @@ class MainScreen extends StatefulWidget {
 
 class MainScreenState extends State<MainScreen> {
     final List _bannerImgList = [
-        "lib/images/banner1.jpg",
-        "lib/images/banner2.jpg",
-        "lib/images/banner3.jpg"
+        "lib/images/main/banner1.jpg",
+        "lib/images/main/banner2.jpg",
+        "lib/images/main/banner3.jpg"
     ];
 
     final List<Map> _moduleList = [{
-        'url': 'lib/images/quick_start.png',
+        'url': 'lib/images/main/quick_start.png',
         'name': '快速入门'
     },{
-        'url': 'lib/images/latest_notice.png',
+        'url': 'lib/images/main/latest_notice.png',
         'name': '最新通知'
     },{
-        'url': 'lib/images/order_entry.png',
+        'url': 'lib/images/main/order_entry.png',
         'name': '录入订单'
     },{
-        'url': 'lib/images/data_center.png',
+        'url': 'lib/images/main/data_center.png',
         'name': '数据中心'
     },{
-        'url': 'lib/images/quick_start.png',
+        'url': 'lib/images/main/quick_start.png',
         'name': '支付订单'
     }];
 

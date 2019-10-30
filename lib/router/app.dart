@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import '../screen/tabbar/tabNavScreen.dart';
 import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
+
+import '../screen/tabbar/tabNavScreen.dart';
+import '../screen/mine/mineMessageScreen.dart';
 
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     debugPaintSizeEnabled = false;
     return MaterialApp(
-      title: '代购APP',
+      title: '跨境通-代购',
       home: TabNavScreen(),
       routes: <String, WidgetBuilder>{
         './': (BuildContext context) => TabNavScreen(),
+        '/mineMessage': (BuildContext context) => MineMessageScreen(),
       },
       theme: ThemeData(
         buttonColor: Colors.blue, //按钮背景颜色

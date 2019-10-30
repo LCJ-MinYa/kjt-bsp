@@ -27,7 +27,7 @@ class _TabNavScreenState extends State<TabNavScreen> {
         OrderScreen(),
         MineScreen()
     ];
-    int _currentIndex = 0;
+    int _currentIndex = 2;
 
     @override
     Widget build(BuildContext context) {

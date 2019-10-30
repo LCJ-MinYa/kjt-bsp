@@ -48,14 +48,19 @@ flutter:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
   assets:
-    - lib/images/banner1.jpg
-    - lib/images/banner2.jpg
-    - lib/images/banner3.jpg
+    # main
+    - lib/images/main/banner1.jpg
+    - lib/images/main/banner2.jpg
+    - lib/images/main/banner3.jpg
 
-    - lib/images/quick_start.png
-    - lib/images/latest_notice.png
-    - lib/images/order_entry.png
-    - lib/images/data_center.png
+    - lib/images/main/quick_start.png
+    - lib/images/main/latest_notice.png
+    - lib/images/main/order_entry.png
+    - lib/images/main/data_center.png
+
+    # mine
+    - lib/images/mine/avatar.png
+    - lib/images/mine/setting.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
