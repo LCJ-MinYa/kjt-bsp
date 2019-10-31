@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
 
 import '../screen/tabbar/tabNavScreen.dart';
 import '../screen/mine/mineMessageScreen.dart';
+import '../screen/mine/aboutUsScreen.dart';
 
 class App extends StatelessWidget {
   @override
@@ -14,6 +15,7 @@ class App extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         './': (BuildContext context) => TabNavScreen(),
         '/mineMessage': (BuildContext context) => MineMessageScreen(),
+        '/aboutUs': (BuildContext context) => AboutUsScreen(),
       },
       theme: ThemeData(
         buttonColor: Colors.blue, //按钮背景颜色

@@ -20,4 +20,8 @@ class UISize{
     static getScreenWidth(){
         return ScreenUtil.screenWidthDp;
     }
+
+    static size(double size){
+        return ScreenUtil.getInstance().setSp(size);
+    }
 }

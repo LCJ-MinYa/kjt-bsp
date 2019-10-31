@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../widget/tap/platformTapWidget.dart';
 import '../../styles/uiSize.dart';
+import '../../widget/cell/listTitleWidget.dart';
+import '../../widget/tap/platformTapWidget.dart';
 
 class MineScreen extends StatefulWidget {
     @override
@@ -14,11 +15,28 @@ class _MineScreenState extends State<MineScreen> {
         'setting': 'lib/images/mine/setting.png'
     };
 
+    final Map _mineMessageData = {
+        'borderRadius': 16.0,
+        'height': 120.0,
+        'title': '我的信息',
+        'iconName': 'lib/images/mine/mine_message.png'   
+    };
+
+    final List<Map> _cellList = [{
+        'screenName': '/feedback',
+        'title': '意见反馈',
+        'iconName': 'lib/images/mine/feedback.png'
+    },{
+        'screenName': '/aboutUs',
+        'title': '关于我们',
+        'iconName': 'lib/images/mine/about_us.png'
+    }];
+
     /* 姓名头像 */
     Widget _userMessage(){
         return Container(
             width: UISize.getScreenWidth(),
-            height: UISize.height(400),
+            height: UISize.height(460),
             color: Color(0xff0d9aff),
             padding: EdgeInsets.only(left: UISize.width(32), top: UISize.height(100)),
             child: Row(
@@ -38,7 +56,7 @@ class _MineScreenState extends State<MineScreen> {
                             _userData['name'],
                             style: TextStyle(
                                 color: Colors.white,
-                                fontSize: UISize.width(36)
+                                fontSize: UISize.size(32)
                             ),
                         ), 
                     ),
@@ -52,7 +70,7 @@ class _MineScreenState extends State<MineScreen> {
         return PlatformTapWidget(
             opacity: 1,
             child: Container(
-                width: UISize.width(UISize.getScreenWidth() * 2 - 64),
+                width: UISize.width(686),
                 height: UISize.height(120),
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -61,14 +79,19 @@ class _MineScreenState extends State<MineScreen> {
                         BoxShadow(
                             color: Color(0xffcccccc),
                             offset: Offset(0, 4),
-                            blurRadius: 8
+                            blurRadius: UISize.width(16)
                         ),
                     ],
                 ),
+                child: ListTitleWidget(
+                    borderRadius: _mineMessageData['borderRadius'],
+                    height: _mineMessageData['height'],
+                    title: _mineMessageData['title'],
+                    iconName: _mineMessageData['iconName'],
+                ),
             ),
             onTap: (){
-                print(1);
-                Navigator.pushNamed(context, '/mineMessage');
+                _goNextScreen('/mineMessage');
             },
         );
     }
@@ -81,7 +104,7 @@ class _MineScreenState extends State<MineScreen> {
             children: <Widget>[
                 _userMessage(),
                 Positioned(
-                    right: UISize.width(35),
+                    right: UISize.width(32),
                     top: UISize.height(64),
                     child: PlatformTapWidget(
                         child: Image.asset(
@@ -114,13 +137,39 @@ class _MineScreenState extends State<MineScreen> {
         );
     }
 
+    Widget _moreWidget(){
+        List<Widget> _cellListWidget = [];
+        Widget _cellContent;
+        for (var item in _cellList) {
+            _cellListWidget.add(
+                ListTitleWidget(
+                    onTap: (){
+                        _goNextScreen(item['screenName']);
+                    },
+                    title: item['title'],
+                    iconName: item['iconName'],
+                )
+            );
+        }
+
+        _cellContent = Column(
+            children: _cellListWidget,
+        );
+        return _cellContent;
+    }
+
     @override
     Widget build(BuildContext context) {
         UISize.init(context);
         return Column(
             children: <Widget>[
                 _userInfo(),
+                _moreWidget(),
             ],
         );
+    }
+
+    _goNextScreen(screenName){
+        Navigator.pushNamed(context, screenName);
     }
 }

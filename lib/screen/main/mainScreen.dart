@@ -80,7 +80,7 @@ class MainScreenState extends State<MainScreen> {
                     Text(
                         _moduleList[index]['name'],
                         style: TextStyle(
-                            fontSize: UISize.width(24),
+                            fontSize: UISize.size(24),
                             color: Color(0xff666666)
                         ),
                     )
