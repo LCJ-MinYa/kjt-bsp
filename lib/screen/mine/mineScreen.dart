@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../styles/uiSize.dart';
+import 'package:flutter/services.dart';
 import '../../widget/cell/listTitleWidget.dart';
 import '../../widget/tap/platformTapWidget.dart';
 
@@ -84,6 +85,7 @@ class _MineScreenState extends State<MineScreen> {
                     ],
                 ),
                 child: ListTitleWidget(
+                    showBottomBorder: false,
                     borderRadius: _mineMessageData['borderRadius'],
                     height: _mineMessageData['height'],
                     title: _mineMessageData['title'],
@@ -161,11 +163,14 @@ class _MineScreenState extends State<MineScreen> {
     @override
     Widget build(BuildContext context) {
         UISize.init(context);
-        return Column(
-            children: <Widget>[
-                _userInfo(),
-                _moreWidget(),
-            ],
+        return AnnotatedRegion<SystemUiOverlayStyle>(
+            value: SystemUiOverlayStyle.light,
+            child: Column(
+                children: <Widget>[
+                    _userInfo(),
+                    _moreWidget(),
+                ],
+            ),
         );
     }
 

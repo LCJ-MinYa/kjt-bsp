@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import '../../styles/uiSize.dart';
 
@@ -108,13 +108,16 @@ class MainScreenState extends State<MainScreen> {
     Widget build(BuildContext context) {
         UISize.init(context);
 
-        return Scaffold(
-            backgroundColor: Color(0xFFf5f5f5),
-            body: Column(
-                children: <Widget>[
-                    _banner(),
-                    _module(),
-                ],
+        return AnnotatedRegion<SystemUiOverlayStyle>(
+            value: SystemUiOverlayStyle.light,
+            child: Scaffold(
+                backgroundColor: Color(0xFFf5f5f5),
+                body: Column(
+                    children: <Widget>[
+                        _banner(),
+                        _module(),
+                    ],
+                ),
             ),
         );
     }

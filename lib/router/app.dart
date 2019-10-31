@@ -18,11 +18,13 @@ class App extends StatelessWidget {
         '/aboutUs': (BuildContext context) => AboutUsScreen(),
       },
       theme: ThemeData(
-        buttonColor: Colors.blue, //按钮背景颜色
+        buttonColor: Color(0xff0d9aff), //按钮背景颜色
         accentTextTheme: TextTheme(
             //默认文本样式
-            title: TextStyle(color: Colors.white, fontSize: 14.0)),
+            title: TextStyle(color: Color(0xff0d9aff), fontSize: 14.0)),
         splashColor: Colors.white,
+        primaryColor: Colors.white,
+        primaryColorLight: Color(0xff0d9aff),
       ),
     );
   }

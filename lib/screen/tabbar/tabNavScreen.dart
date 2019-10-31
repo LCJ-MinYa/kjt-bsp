@@ -27,17 +27,19 @@ class _TabNavScreenState extends State<TabNavScreen> {
         OrderScreen(),
         MineScreen()
     ];
-    int _currentIndex = 2;
+    int _currentIndex = 0;
 
     @override
     Widget build(BuildContext context) {
         return Scaffold(
             body: _screenList[_currentIndex],
             bottomNavigationBar: BottomNavigationBar(
+                selectedItemColor: Theme.of(context).primaryColorLight,
                 backgroundColor: Color(0xFFFAFAFA),
                 items: _bottomTabList,
                 currentIndex: _currentIndex,
                 onTap: _toggleTab,
+                
             )
         );
     }

@@ -4,15 +4,16 @@ import '../tap/platformTapWidget.dart';
 
 /* listTitle封装 */
 class ListTitleWidget extends StatelessWidget {
-    final Function onTap;       //是否能点击，点击事件
-    final String title;         //标题
-    final Color bgColor;        //背景颜色 =>默认白色
-    final bool showArrow;       //是否显示右侧箭头 =>默认显示
-    final String iconName;      //左侧icon
-    final double height;        //自定义高度 => 默认50dp
-    final double borderRadius;  //是否有圆角 => 默认无圆角
+    final Function onTap;           //是否能点击，点击事件
+    final String title;             //标题
+    final Color bgColor;            //背景颜色 =>默认白色
+    final bool showArrow;           //是否显示右侧箭头 =>默认显示
+    final String iconName;          //左侧icon
+    final double height;            //自定义高度 => 默认50dp
+    final double borderRadius;      //是否有圆角 => 默认无圆角
+    final bool showBottomBorder;    //是否显示底部边框 => 默认显示
 
-    ListTitleWidget({Key key,
+    ListTitleWidget({
         this.onTap,
         @required this.title,
         this.bgColor,
@@ -20,7 +21,8 @@ class ListTitleWidget extends StatelessWidget {
         @required this.iconName,
         this.height,
         this.borderRadius,
-    }) : super(key: key);
+        this.showBottomBorder = true,
+    });
 
     Widget _listTitleWidget(){
         return Container(
@@ -49,7 +51,7 @@ class ListTitleWidget extends StatelessWidget {
                             decoration: BoxDecoration(
                                 border: Border(
                                     bottom: BorderSide(
-                                        width: UISize.height(1),
+                                        width: UISize.height(showBottomBorder ? 1 : 0),
                                         color: Color(0xffe0e4e6),
                                     ),
                                 ),
@@ -64,10 +66,10 @@ class ListTitleWidget extends StatelessWidget {
                                             fontSize: UISize.size(28)
                                         ),
                                     ),
-                                    Icon(
+                                    showArrow ? Icon(
                                         Icons.keyboard_arrow_right,
                                         color: Color(0xffB3B3B3),
-                                    ),     
+                                    ) : Container(width: 0, height: 0),     
                                 ],
                             ),
                         ),
