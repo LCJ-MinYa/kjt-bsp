@@ -34,12 +34,11 @@ class _TabNavScreenState extends State<TabNavScreen> {
         return Scaffold(
             body: _screenList[_currentIndex],
             bottomNavigationBar: BottomNavigationBar(
-                selectedItemColor: Theme.of(context).primaryColorLight,
+                // selectedItemColor: Theme.of(context).primaryColorLight,
                 backgroundColor: Color(0xFFFAFAFA),
                 items: _bottomTabList,
                 currentIndex: _currentIndex,
                 onTap: _toggleTab,
-                
             )
         );
     }

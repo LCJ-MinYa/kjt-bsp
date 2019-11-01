@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import '../../styles/uiSize.dart';
+import '../../config/appConfig.dart';
 
 class MainScreen extends StatefulWidget {
     @override
@@ -10,25 +11,25 @@ class MainScreen extends StatefulWidget {
 
 class MainScreenState extends State<MainScreen> {
     final List _bannerImgList = [
-        "lib/images/main/banner1.jpg",
-        "lib/images/main/banner2.jpg",
-        "lib/images/main/banner3.jpg"
+        AppConfig.mainImgUrl + "banner1.jpg",
+        AppConfig.mainImgUrl + "banner2.jpg",
+        AppConfig.mainImgUrl + "banner3.jpg"
     ];
 
     final List<Map> _moduleList = [{
-        'url': 'lib/images/main/quick_start.png',
+        'url': AppConfig.mainImgUrl + 'quick_start.png',
         'name': '快速入门'
     },{
-        'url': 'lib/images/main/latest_notice.png',
+        'url': AppConfig.mainImgUrl + 'latest_notice.png',
         'name': '最新通知'
     },{
-        'url': 'lib/images/main/order_entry.png',
+        'url': AppConfig.mainImgUrl + 'order_entry.png',
         'name': '录入订单'
     },{
-        'url': 'lib/images/main/data_center.png',
+        'url': AppConfig.mainImgUrl + 'data_center.png',
         'name': '数据中心'
     },{
-        'url': 'lib/images/main/quick_start.png',
+        'url': AppConfig.mainImgUrl + 'quick_start.png',
         'name': '支付订单'
     }];
 
@@ -111,7 +112,6 @@ class MainScreenState extends State<MainScreen> {
         return AnnotatedRegion<SystemUiOverlayStyle>(
             value: SystemUiOverlayStyle.light,
             child: Scaffold(
-                backgroundColor: Color(0xFFf5f5f5),
                 body: Column(
                     children: <Widget>[
                         _banner(),

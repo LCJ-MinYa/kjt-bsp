@@ -26,6 +26,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   flutter_swiper: ^1.1.6
   flutter_screenutil: ^0.6.0
+  image_picker: ^0.5.0+9
 
 dev_dependencies:
   flutter_test:
@@ -49,21 +50,10 @@ flutter:
   #  - images/a_dot_ham.jpeg
   assets:
     # main
-    - lib/images/main/banner1.jpg
-    - lib/images/main/banner2.jpg
-    - lib/images/main/banner3.jpg
-
-    - lib/images/main/quick_start.png
-    - lib/images/main/latest_notice.png
-    - lib/images/main/order_entry.png
-    - lib/images/main/data_center.png
+    - lib/images/main/
 
     # mine
-    - lib/images/mine/avatar.png
-    - lib/images/mine/setting.png
-    - lib/images/mine/mine_message.png
-    - lib/images/mine/about_us.png
-    - lib/images/mine/feedback.png
+    - lib/images/mine/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
