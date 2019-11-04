@@ -7,7 +7,11 @@ class PlatformTapWidget extends StatelessWidget {
     final Widget child;
     final double opacity;
 
-    const PlatformTapWidget({Key key, this.onTap, this.child, this.opacity = 0.7}) : super(key: key);
+    PlatformTapWidget({
+        this.onTap,
+        this.child,
+        this.opacity = 0.7,
+    });
 
     @override
     Widget build(BuildContext context) {

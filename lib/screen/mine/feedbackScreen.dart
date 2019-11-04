@@ -1,9 +1,10 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
-import '../../widget/tap/platformTapWidget.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../widget/tap/platformTapWidget.dart';
+import '../../widget/button/submitButton.dart';
 
 class FeedbackScreen extends StatefulWidget {
     @override
@@ -12,6 +13,8 @@ class FeedbackScreen extends StatefulWidget {
 
 class _FeedbackScreenState extends State<FeedbackScreen> {
     File _image;
+    bool _disable = true;
+    String _notes = '';
     
     /* 输入意见反馈文本 */
     Widget _inputNotes(){
@@ -36,8 +39,56 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                     fontSize: UISize.size(28)
                 ),
                 cursorColor: Color(0xff333333),
-            )
+                onChanged: (val){
+                    setState((){
+                        _notes = val;
+                    });
+                    _toggleDisable();
+                },
+            ),
         );
+    }
+
+    /* 照片显示 */
+    Widget _isShowImage(){
+        if(_image == null){
+            return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                    Icon(Icons.camera_alt, size: UISize.size(64), color: Color(0xffb3b3b3),),
+                    Text('照片', style: TextStyle(fontSize: UISize.size(24), color: Color(0xffb3b3b3)),),
+                ],
+            );
+        }else{
+            return Stack(
+                children: <Widget>[
+                    ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.file(
+                            _image,
+                            width: double.infinity,
+                            height: double.infinity,
+                            fit: BoxFit.cover,
+                        ),
+                    ),
+                    Positioned(
+                        top: UISize.width(5),
+                        right: UISize.width(10),
+                        width: UISize.width(40),
+                        height: UISize.width(40),
+                        child: PlatformTapWidget(
+                            onTap: (){
+                                _updateImage(null);
+                            },
+                            child: Icon(
+                                Icons.cancel,
+                                color: Color(0xffb3b3b3),
+                            ),
+                        ),
+                    ),
+                ],
+            );
+        }
     }
 
     /* 选择照片 */
@@ -64,19 +115,13 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                         height: UISize.width(160),
                         decoration: BoxDecoration(
                             border: Border.all(
-                                width: UISize.width(1),
+                                width: UISize.width(_image != null ? 0 : 1),
                                 color: Color(0xffb3b3b3)
                             ),
                             borderRadius: BorderRadius.all(Radius.circular(8)),
                         ),
                         alignment: Alignment(0, 0),
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                                Icon(Icons.camera_alt, size: UISize.size(64), color: Color(0xffb3b3b3),),
-                                Text('照片', style: TextStyle(fontSize: UISize.size(24), color: Color(0xffb3b3b3)),),
-                            ],
-                        ),
+                        child: _isShowImage()
                     ),
                 ),
             ),
@@ -90,31 +135,17 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
             appBar: AppBar(
                 title: Text('意见反馈'),
             ),
-            body: Stack(
+            body: ListView(
+                padding: EdgeInsets.only(top: UISize.height(12)),
                 children: <Widget>[
-                    ListView(
-                        padding: EdgeInsets.only(top: UISize.height(12)),
-                        children: <Widget>[
-                            _inputNotes(),
-                            _imagePicker(),
-                        ],
-                    ),
-                    Positioned(
-                        bottom: UISize.height(60),
-                        left: UISize.width(105),
-                        right: UISize.width(105),
-                        child: PlatformTapWidget(
+                    _inputNotes(),
+                    _imagePicker(),
+                    Container(
+                        margin: EdgeInsets.only(top: UISize.height(360)),
+                        child: SubmitButton(
                             onTap: (){},
-                            child: Container(
-                                width: UISize.width(540),
-                                height: UISize.height(88),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    color: Color.fromRGBO(13, 154, 255, 0.3),
-                                    borderRadius: BorderRadius.all(Radius.circular(UISize.height(44)))
-                                ),
-                                child: Text('提交', style: TextStyle(color: Colors.white, fontSize: UISize.size(30)),),
-                            ),
+                            title: '提交',
+                            disable: _disable,
                         ),
                     ),
                 ],
@@ -124,6 +155,29 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
 
     Future _getImagePiacker() async{
         var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-        print(image);
+        if(image == null){
+            return;
+        }
+        _updateImage(image);
+    }
+
+    _updateImage(image){
+        setState(() {
+            _image = image;
+        });
+        _toggleDisable();
+    }
+
+    _toggleDisable(){
+        if(_notes != '' && _image != null && _disable){
+            setState(() {
+                _disable = false;
+            });
+        }
+        if((_notes == '' || _image == null) && !_disable){
+            setState(() {
+                _disable = true;
+            });
+        }
     }
 }
