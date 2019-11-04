@@ -55,6 +55,9 @@ flutter:
     # mine
     - lib/images/mine/
 
+    # login
+    - lib/images/login/
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

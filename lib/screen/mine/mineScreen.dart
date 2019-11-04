@@ -35,34 +35,40 @@ class _MineScreenState extends State<MineScreen> {
 
     /* 姓名头像 */
     Widget _userMessage(){
-        return Container(
-            width: UISize.getScreenWidth(),
-            height: UISize.height(460),
-            color: Color(0xff0d9aff),
-            padding: EdgeInsets.only(left: UISize.width(32), top: UISize.height(100)),
-            child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                    Image.asset(
-                        _userData['avatar'],
-                        fit: BoxFit.cover,
-                        width: UISize.height(120),
-                        height: UISize.height(120),
+        return PlatformTapWidget(
+            opacity: 0.9,
+            onTap: (){
+                _goNextScreen('/login');
+            },
+            child: Container(
+                width: UISize.getScreenWidth(),
+                height: UISize.height(460),
+                color: Color(0xff0d9aff),
+                padding: EdgeInsets.only(left: UISize.width(32), top: UISize.height(100)),
+                child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                        Image.asset(
+                            _userData['avatar'],
+                            fit: BoxFit.cover,
+                            width: UISize.height(120),
+                            height: UISize.height(120),
+                        ),
+                        Container(
+                            alignment: Alignment(0, 0),
+                            height: UISize.height(120),
+                            padding: EdgeInsets.only(left: UISize.width(12)),
+                            child: Text(
+                                _userData['name'],
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: UISize.size(32)
+                                ),
+                            ), 
+                        ),
+                    ],
                     ),
-                    Container(
-                        alignment: Alignment(0, 0),
-                        height: UISize.height(120),
-                        padding: EdgeInsets.only(left: UISize.width(12)),
-                        child: Text(
-                            _userData['name'],
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: UISize.size(32)
-                            ),
-                        ), 
-                    ),
-                ],
-                ),
+            ),
         );
     }
 

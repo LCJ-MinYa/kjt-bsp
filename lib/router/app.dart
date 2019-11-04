@@ -9,9 +9,12 @@ class App extends StatelessWidget {
         debugPaintSizeEnabled = false;
         return MaterialApp(
             title: '跨境通-代购',
-            home: RouteConfig.initRouteName,
-            routes: RouteConfig.router,
-            theme: ThemeConfig.themeData()
+            initialRoute: RouteConfig.initRouteName,
+            // routes: RouteConfig.router,
+            theme: ThemeConfig.themeData(),
+            onGenerateRoute: (RouteSettings settings){
+                return RouteConfig.onGenerateRouteConfig(settings);
+            },
         );
     }
 }
