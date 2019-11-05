@@ -149,6 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         _forgetPwdWidget(),
                     ],
                 ),
+                resizeToAvoidBottomPadding: false, //输入框抵住键盘,内容不随键盘滚动 =>防止键盘弹出 导致超出屏幕
             ),
         );
     }
