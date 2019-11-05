@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/button/submitButton.dart';
+import 'package:kjt_bsp/widget/input/textFieldWidget.dart';
 import 'package:kjt_bsp/widget/tap/platformTapWidget.dart';
 import '../../config/appConfig.dart';
 
@@ -63,34 +64,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Icon(
                             iconName,
                             color: Theme.of(context).primaryColor,
-                            size: isPwd ? 22 : 24,
+                            size: UISize.size(isPwd ? 44 : 48),
                         ),
                     ),
-                    Expanded(
-                        child: Container(
-                            width: double.infinity,
-                            height: double.infinity,
-                            alignment: Alignment.centerLeft,
-                            child: TextField(
-                                maxLength: 10,
-                                decoration: InputDecoration(
-                                    hintText: hintText,
-                                    hintStyle: TextStyle(
-                                        color: Color(0xffb3b3b3),
-                                        fontSize: UISize.size(30)
-                                    ),
-                                    border: InputBorder.none,
-                                    counterText: '',
-                                ),
-                                style: TextStyle(
-                                    color: Color(0xff333333),
-                                    fontSize: UISize.size(30)
-                                ),
-                                cursorColor: Color(0xff333333),
-                                obscureText: isPwd,
-                            ),
-                        )
-                    )
+                    TextFieldWidget(
+                        hintText: hintText,
+                        isPwd: isPwd,
+                        maxLength: isPwd ? 20 : 11,
+                        keyboardType: isPwd ? TextInputType.text : TextInputType.number,
+                        rightIconMargin: 0,
+                    ),
                 ],
             ),
         );
@@ -100,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
     Widget _forgetPwdWidget(){
         return PlatformTapWidget(
             onTap: (){
-
+                Navigator.pushNamed(context, '/forgetPwd');
             },
             child: Container(
                 margin: EdgeInsets.only(top: UISize.height(10)),

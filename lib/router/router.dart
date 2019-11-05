@@ -6,6 +6,7 @@ import '../screen/mine/aboutUsScreen.dart';
 import '../screen/mine/feedbackScreen.dart';
 
 import '../screen/login/loginScreen.dart';
+import '../screen/login/forgetPwdScreen.dart';
 
 class RouteConfig{
     // static final Map<String, WidgetBuilder> router = {
@@ -43,6 +44,10 @@ class RouteConfig{
                         return LoginScreen();
                     },
                     fullscreenDialog: true
+                );
+            case '/forgetPwd':
+                return MaterialPageRoute(
+                    builder: (context) => ForgetPwdScreen(),
                 );
             default:
                 return MaterialPageRoute(
