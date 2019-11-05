@@ -19,6 +19,8 @@ class SubmitButton extends StatelessWidget {
 
     @override
     Widget build(BuildContext context) {
+        UISize.init(context);
+
         return PlatformTapWidget(
             opacity: disable ? 1 : 0.7,
             onTap: onTap,
