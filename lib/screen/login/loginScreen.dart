@@ -60,11 +60,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     Container(
                         margin: EdgeInsets.only(right: UISize.width(32)),
                         width: UISize.width(40),
-                        height: UISize.width(40),
+                        height: double.infinity,
                         child: Icon(
                             iconName,
                             color: Theme.of(context).primaryColor,
-                            size: UISize.size(isPwd ? 44 : 48),
+                            size: UISize.size(isPwd ? 40 : 44),
                         ),
                     ),
                     TextFieldWidget(
