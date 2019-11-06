@@ -122,7 +122,7 @@ class _MineScreenState extends State<MineScreen> {
                             fit: BoxFit.cover,
                         ),
                         onTap: (){
-                            print("111");
+                            _goNextScreen('/setting');
                         },
                     ),
                 ),

@@ -7,6 +7,7 @@ class NameCellWidget extends StatelessWidget {
     final Function onTap;           //是否能点击，点击事件
     final String title;             //标题
     final String value;             //对应值
+    final TextStyle valueTextStyle; //对应值自定义样式
     final Color bgColor;            //背景颜色 =>默认白色
     final bool showArrow;           //是否显示右侧箭头 =>默认显示
     final double height;            //自定义高度 => 默认48dp
@@ -16,6 +17,7 @@ class NameCellWidget extends StatelessWidget {
     NameCellWidget({
         this.onTap,
         this.title,
+        this.valueTextStyle,
         this.bgColor = Colors.white,
         this.showArrow = true,
         @required this.value,
@@ -66,7 +68,7 @@ class NameCellWidget extends StatelessWidget {
                                     children: <Widget>[
                                         Text(
                                             value,
-                                            style: TextStyle(
+                                            style: valueTextStyle != null ? valueTextStyle : TextStyle(
                                                 color: Color(0xff333333),
                                                 fontSize: UISize.size(28)
                                             ),

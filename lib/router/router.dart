@@ -4,6 +4,8 @@ import '../screen/tabbar/tabNavScreen.dart';
 import '../screen/mine/mineMessageScreen.dart';
 import '../screen/mine/aboutUsScreen.dart';
 import '../screen/mine/feedbackScreen.dart';
+import '../screen/mine/settingScreen.dart';
+import '../screen/mine/modifyPwdScreen.dart';
 
 import '../screen/login/loginScreen.dart';
 import '../screen/login/forgetPwdScreen.dart';
@@ -48,6 +50,14 @@ class RouteConfig{
             case '/forgetPwd':
                 return MaterialPageRoute(
                     builder: (context) => ForgetPwdScreen(),
+                );
+            case '/setting':
+                return MaterialPageRoute(
+                    builder: (context) => SettingScreen(),
+                );
+            case '/modifyPwd':
+                return MaterialPageRoute(
+                    builder: (context) => ModifyPwdScreen(),
                 );
             default:
                 return MaterialPageRoute(
