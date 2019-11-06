@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../screen/tabbar/tabNavScreen.dart';
 
@@ -24,23 +25,23 @@ class RouteConfig{
     static Route<dynamic> onGenerateRouteConfig(RouteSettings settings){
         switch(settings.name){
             case '/':
-                return MaterialPageRoute(
+                return CupertinoPageRoute(
                     builder: (context) => TabNavScreen(),
                 );
             case '/mineMessage':
-                return MaterialPageRoute(
+                return CupertinoPageRoute(
                     builder: (context) => MineMessageScreen(),
                 );
             case '/aboutUs':
-                return MaterialPageRoute(
+                return CupertinoPageRoute(
                     builder: (context) => AboutUsScreen(),
                 );
             case '/feedback':
-                return MaterialPageRoute(
+                return CupertinoPageRoute(
                     builder: (context) => FeedbackScreen(),
                 );
             case '/login':
-                return MaterialPageRoute(
+                return CupertinoPageRoute(
                     builder: (context){
                         // print(settings);
                         return LoginScreen();
@@ -48,19 +49,19 @@ class RouteConfig{
                     fullscreenDialog: true
                 );
             case '/forgetPwd':
-                return MaterialPageRoute(
+                return CupertinoPageRoute(
                     builder: (context) => ForgetPwdScreen(),
                 );
             case '/setting':
-                return MaterialPageRoute(
+                return CupertinoPageRoute(
                     builder: (context) => SettingScreen(),
                 );
             case '/modifyPwd':
-                return MaterialPageRoute(
+                return CupertinoPageRoute(
                     builder: (context) => ModifyPwdScreen(),
                 );
             default:
-                return MaterialPageRoute(
+                return CupertinoPageRoute(
                     builder: (context) => TabNavScreen(),
                 );
         }

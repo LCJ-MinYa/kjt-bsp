@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kjt_bsp/common/toast.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/cell/nameCellWidget.dart';
 
@@ -29,15 +29,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         showBottomBorder: false,
                         value: '清除缓存',
                         onTap: (){
-                            Fluttertoast.showToast(
-                                msg: "This is Center Short ToastThis is Center Short ToastThis is Center Short ToastThis is Center Short Toast",
-                                toastLength: Toast.LENGTH_LONG,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIos: 1,
-                                backgroundColor: Colors.red,
-                                textColor: Colors.white,
-                                fontSize: 16.0
-                            );
+                            toast('测试toast得效果');
                         },
                     ),
                     SizedBox(height: UISize.height(12)),
