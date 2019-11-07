@@ -169,6 +169,7 @@ class _MineScreenState extends State<MineScreen> {
     @override
     Widget build(BuildContext context) {
         UISize.init(context);
+
         return AnnotatedRegion<SystemUiOverlayStyle>(
             value: SystemUiOverlayStyle.light,
             child: Column(
