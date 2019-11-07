@@ -40,6 +40,7 @@ class _TabNavScreenState extends State<TabNavScreen> {
     Widget build(BuildContext context) {
         return Scaffold(
             body: PageView(
+                physics: NeverScrollableScrollPhysics(),
                 controller: _pageController,
                 children: _screenList,
                 // onPageChanged: (index){
