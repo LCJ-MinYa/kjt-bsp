@@ -9,7 +9,8 @@ class NameCellWidget extends StatelessWidget {
     final String value;             //对应值
     final TextStyle valueTextStyle; //对应值自定义样式
     final Color bgColor;            //背景颜色 =>默认白色
-    final bool showArrow;           //是否显示右侧箭头 =>默认显示
+    final bool showArrow;           //是否显示右侧箭头 => 默认显示
+    final String rightText;         //是否显示右侧箭头前面的文本 => 默认不显示
     final double height;            //自定义高度 => 默认48dp
     final double borderRadius;      //是否有圆角 => 默认无圆角
     final bool showBottomBorder;    //是否显示底部边框 => 默认显示
@@ -20,11 +21,43 @@ class NameCellWidget extends StatelessWidget {
         this.valueTextStyle,
         this.bgColor = Colors.white,
         this.showArrow = true,
+        this.rightText,
         @required this.value,
         this.height = 96,
         this.borderRadius = 0,
         this.showBottomBorder = true,
     });
+
+    final TextStyle _baseTextStyle = TextStyle(
+        color: Color(0xff333333),
+        fontSize: UISize.size(28)
+    );
+
+    final TextStyle _rightTextStyle = TextStyle(
+        color: Color(0xffB3B3B3),
+        fontSize: UISize.size(28)
+    );
+
+    Widget _rightWidget(){
+        if(showArrow && rightText != null){
+            return Row(
+                children: <Widget>[
+                    Text(rightText, style: _rightTextStyle),
+                    Icon(
+                        Icons.keyboard_arrow_right,
+                        color: Color(0xffB3B3B3)
+                    )
+                ],
+            );
+        }else if(showArrow && rightText == null){
+            return Icon(
+                Icons.keyboard_arrow_right,
+                color: Color(0xffB3B3B3)
+            );
+        }else{
+            return Container(width: 0, height: 0);
+        }
+    }
 
     Widget _nameCellWidget(){
         return Container(
@@ -52,10 +85,7 @@ class NameCellWidget extends StatelessWidget {
                             height: double.infinity,
                             child: Text(
                                 title,
-                                style: TextStyle(
-                                    fontSize: UISize.size(28),
-                                    color: Color(0xff333333)
-                                ),
+                                style: _baseTextStyle,
                             ),
                             alignment: Alignment.centerLeft,
                         ) : Container(width: 0, height: 0),
@@ -68,15 +98,9 @@ class NameCellWidget extends StatelessWidget {
                                     children: <Widget>[
                                         Text(
                                             value,
-                                            style: valueTextStyle != null ? valueTextStyle : TextStyle(
-                                                color: Color(0xff333333),
-                                                fontSize: UISize.size(28)
-                                            ),
+                                            style: valueTextStyle != null ? valueTextStyle : _baseTextStyle,
                                         ),
-                                        showArrow ? Icon(
-                                            Icons.keyboard_arrow_right,
-                                            color: Color(0xffB3B3B3)
-                                        ) : Container(width: 0, height: 0),     
+                                        _rightWidget(),     
                                     ],
                                 ),
                             ),

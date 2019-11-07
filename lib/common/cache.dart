@@ -1,9 +1,10 @@
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
+import 'package:kjt_bsp/common/toast.dart';
 
 class Cache{
     //加载缓存
-    static Future<Null> loadCache() async {
+    static Future loadCache() async {
         try {
             Directory tempDir = await getTemporaryDirectory();
             double value = await _getTotalSizeOfFilesInDir(tempDir);
@@ -11,11 +12,9 @@ class Cache{
                 //打印每个缓存文件的路径
                 print(file.path);
             });*/
-            print('临时目录大小: ' + value.toString());
             return _renderSize(value);
         } catch (err) {
-            print(err);
-            return null;
+            return _renderSize(0);
         }
     }
 
@@ -55,8 +54,34 @@ class Cache{
                 }
             return 0;
         } catch (e) {
-            print(e);
+            if(e.runtimeType == FileSystemException){
+                print('递归方式计算文件的大小, 目录不存在(已清除过缓存)');
+            }
             return 0;
+        }
+    }
+
+    static clearCache() async{
+        Directory tempDir = await getTemporaryDirectory();
+        //删除缓存目录
+        await delDir(tempDir);
+        toast('清除缓存成功');
+    }
+
+    //递归方式删除目录
+    static Future<Null> delDir(FileSystemEntity file) async {
+        try{
+            if (file is Directory) {
+                final List<FileSystemEntity> children = file.listSync();
+                for (final FileSystemEntity child in children) {
+                    await delDir(child);
+                }
+            }
+            await file.delete();
+        }catch(e){
+            if(e.runtimeType == FileSystemException){
+                print('递归方式删除目录, 目录不存在(已清除过缓存)');
+            }
         }
     }
 }
