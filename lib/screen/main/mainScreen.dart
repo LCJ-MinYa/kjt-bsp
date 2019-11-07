@@ -9,7 +9,11 @@ class MainScreen extends StatefulWidget {
     MainScreenState createState() => new MainScreenState();
 }
 
-class MainScreenState extends State<MainScreen> {
+class MainScreenState extends State<MainScreen> with AutomaticKeepAliveClientMixin{
+    @override
+    //true表示页面保持状态
+    bool get wantKeepAlive => true;
+    
     final List _bannerImgList = [
         AppConfig.mainImgUrl + "banner1.jpg",
         AppConfig.mainImgUrl + "banner2.jpg",
@@ -107,6 +111,7 @@ class MainScreenState extends State<MainScreen> {
 
     @override
     Widget build(BuildContext context) {
+        super.build(context);
         UISize.init(context);
 
         return AnnotatedRegion<SystemUiOverlayStyle>(

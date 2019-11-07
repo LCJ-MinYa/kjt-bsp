@@ -22,17 +22,30 @@ class _TabNavScreenState extends State<TabNavScreen> {
             title: Text('我的')
         )
     ];
-    final List _screenList = [
+    final List<Widget> _screenList = [
         MainScreen(),
         OrderScreen(),
         MineScreen()
     ];
     int _currentIndex = 0;
+    PageController _pageController;
+
+    @override
+    void initState() {
+        super.initState();
+        _pageController = PageController(initialPage: _currentIndex);
+    }
 
     @override
     Widget build(BuildContext context) {
         return Scaffold(
-            body: _screenList[_currentIndex],
+            body: PageView(
+                controller: _pageController,
+                children: _screenList,
+                // onPageChanged: (index){
+
+                // },
+            ),
             bottomNavigationBar: BottomNavigationBar(
                 // selectedItemColor: Theme.of(context).primaryColorLight,
                 backgroundColor: Color(0xFFFAFAFA),
@@ -45,7 +58,8 @@ class _TabNavScreenState extends State<TabNavScreen> {
 
     _toggleTab(index){
         setState(() {
-            this._currentIndex = index;
+            _currentIndex = index; //控制底部导航按钮选择状态，不能省略
+            _pageController.jumpToPage(_currentIndex);
         });
     }
 }

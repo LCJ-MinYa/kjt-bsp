@@ -9,7 +9,10 @@ class MineScreen extends StatefulWidget {
     _MineScreenState createState() => _MineScreenState();
 }
 
-class _MineScreenState extends State<MineScreen> {
+class _MineScreenState extends State<MineScreen> with AutomaticKeepAliveClientMixin {
+    @override
+    bool get wantKeepAlive => true;
+    
     final Map _userData = {
         'avatar': 'lib/images/mine/avatar.png',
         'name': '请登录/姓名',
@@ -168,6 +171,7 @@ class _MineScreenState extends State<MineScreen> {
 
     @override
     Widget build(BuildContext context) {
+        super.build(context);
         UISize.init(context);
 
         return AnnotatedRegion<SystemUiOverlayStyle>(

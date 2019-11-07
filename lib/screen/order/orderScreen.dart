@@ -6,9 +6,13 @@ class OrderScreen extends StatefulWidget {
     _OrderScreenState createState() => _OrderScreenState();
 }
 
-class _OrderScreenState extends State<OrderScreen> {
+class _OrderScreenState extends State<OrderScreen> with AutomaticKeepAliveClientMixin{
+    @override
+    bool get wantKeepAlive => true;
+    
     @override
     Widget build(BuildContext context) {
+        super.build(context);
         UISize.init(context);
 
         return DefaultTabController(
