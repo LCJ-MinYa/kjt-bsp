@@ -12,58 +12,54 @@ import '../screen/login/loginScreen.dart';
 import '../screen/login/forgetPwdScreen.dart';
 
 class RouteConfig{
-    // static final Map<String, WidgetBuilder> router = {
-    //     '/': (BuildContext context) => TabNavScreen(),
-    //     '/mineMessage': (BuildContext context) => MineMessageScreen(),
-    //     '/aboutUs': (BuildContext context) => AboutUsScreen(),
-    //     '/feedback': (BuildContext context) => FeedbackScreen(),
-    //     '/login': (BuildContext context) => LoginScreen(),
-    // };
-
     static final initRouteName = '/';
 
-    static Route<dynamic> onGenerateRouteConfig(RouteSettings settings){
-        switch(settings.name){
-            case '/':
-                return CupertinoPageRoute(
-                    builder: (context) => TabNavScreen(),
-                );
-            case '/mineMessage':
-                return CupertinoPageRoute(
-                    builder: (context) => MineMessageScreen(),
-                );
-            case '/aboutUs':
-                return CupertinoPageRoute(
-                    builder: (context) => AboutUsScreen(),
-                );
-            case '/feedback':
-                return CupertinoPageRoute(
-                    builder: (context) => FeedbackScreen(),
-                );
-            case '/login':
-                return CupertinoPageRoute(
-                    builder: (context){
-                        // print(settings);
-                        return LoginScreen();
-                    },
-                    fullscreenDialog: true
-                );
-            case '/forgetPwd':
-                return CupertinoPageRoute(
-                    builder: (context) => ForgetPwdScreen(),
-                );
-            case '/setting':
-                return CupertinoPageRoute(
-                    builder: (context) => SettingScreen(),
-                );
-            case '/modifyPwd':
-                return CupertinoPageRoute(
-                    builder: (context) => ModifyPwdScreen(),
-                );
-            default:
-                return CupertinoPageRoute(
-                    builder: (context) => TabNavScreen(),
-                );
+    static final Map<String, WidgetBuilder> router = {
+        '/': (BuildContext context) => TabNavScreen(),
+        '/mineMessage': (BuildContext context) => MineMessageScreen(),
+        '/aboutUs': (BuildContext context) => AboutUsScreen(),
+        '/feedback': (BuildContext context) => FeedbackScreen(),
+        '/login': (BuildContext context) => LoginScreen(),
+        '/forgetPwd': (BuildContext context) => ForgetPwdScreen(),
+        '/setting': (BuildContext context) => SettingScreen(),
+        '/modifyPwd': (BuildContext context) => ModifyPwdScreen(),
+    };
+
+    static Route<dynamic> onGenerateRoute(RouteSettings settings){
+
+        // 统一处理路由
+        final String name = settings.name; 
+        final Function pageContentBuilder = router[name];
+
+        //定义当前需要返回得route对象
+        Route route;
+        if (pageContentBuilder != null) {
+            if (settings.arguments != null) {
+                //带参数的处理方式
+                switch(name){
+                    default:
+                        route = CupertinoPageRoute(
+                            builder: (context) => pageContentBuilder(context, arguments: settings.arguments)
+                        );
+                        break;
+                }
+            }else{
+                //不带参数的处理方式
+                switch(name){
+                    case '/login':
+                        route = CupertinoPageRoute(
+                            builder: (context) => pageContentBuilder(context),
+                            fullscreenDialog: true
+                        );
+                        break;
+                    default:
+                        route = CupertinoPageRoute(
+                            builder: (context) => pageContentBuilder(context)
+                        );
+                        break;
+                }
+            }
         }
+        return route;
     }
 }

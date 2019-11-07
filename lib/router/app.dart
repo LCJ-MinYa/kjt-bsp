@@ -10,11 +10,8 @@ class App extends StatelessWidget {
         return MaterialApp(
             title: '跨境通-代购',
             initialRoute: RouteConfig.initRouteName,
-            // routes: RouteConfig.router,
             theme: ThemeConfig.themeData(),
-            onGenerateRoute: (RouteSettings settings){
-                return RouteConfig.onGenerateRouteConfig(settings);
-            },
+            onGenerateRoute: RouteConfig.onGenerateRoute,
         );
     }
 }

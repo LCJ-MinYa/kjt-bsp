@@ -15,7 +15,7 @@ showAlertDialog(BuildContext context, String title, String content, Function con
                             '取消',
                             style: TextStyle(
                                 color: Color(0xff333333),
-                                fontSize: UISize.size(28)
+                                fontSize: UISize.size(26)
                             ),
                         ),
                         onPressed: (){
@@ -26,7 +26,7 @@ showAlertDialog(BuildContext context, String title, String content, Function con
                         child: Text(
                             '确认',
                             style: TextStyle(
-                                fontSize: UISize.size(28)
+                                fontSize: UISize.size(26)
                             ),
                         ),
                         onPressed: (){

@@ -15,25 +15,7 @@ class _OrderScreenState extends State<OrderScreen> {
             length: 3,
             child: Scaffold(
                 appBar: AppBar(
-                    // bottom: PreferredSize(
-                    //     child: TabBar(
-                    //         tabs: <Widget>[
-                    //             Tab(text: '全部订单'),
-                    //             Tab(text: '历史订单'),
-                    //             Tab(text: '待支付订单')
-                    //         ],
-                    //         labelColor: Theme.of(context).primaryColor,
-                    //         labelStyle: TextStyle(
-                    //             fontSize: UISize.size(32)
-                    //         ),
-                    //         unselectedLabelColor: Theme.of(context).primaryColorLight,
-                    //         unselectedLabelStyle: TextStyle(
-                    //             fontSize: UISize.size(28)
-                    //         ),
-                    //         indicatorSize: TabBarIndicatorSize.label,
-                    //     ), preferredSize: Size(0, 0),
-                    // ),
-                    flexibleSpace: SafeArea(
+                    bottom: PreferredSize(
                         child: TabBar(
                             tabs: <Widget>[
                                 Tab(text: '全部订单'),
@@ -49,8 +31,45 @@ class _OrderScreenState extends State<OrderScreen> {
                                 fontSize: UISize.size(28)
                             ),
                             indicatorSize: TabBarIndicatorSize.label,
-                        ),
+                        ), preferredSize: Size(0, 0),
                     ),
+                    // flexibleSpace: SafeArea(
+                    //     child: TabBar(
+                    //         tabs: <Widget>[
+                    //             Tab(text: '全部订单'),
+                    //             Tab(text: '历史订单'),
+                    //             Tab(text: '待支付订单')
+                    //         ],
+                    //         labelColor: Theme.of(context).primaryColor,
+                    //         labelStyle: TextStyle(
+                    //             fontSize: UISize.size(32)
+                    //         ),
+                    //         unselectedLabelColor: Theme.of(context).primaryColorLight,
+                    //         unselectedLabelStyle: TextStyle(
+                    //             fontSize: UISize.size(28)
+                    //         ),
+                    //         indicatorSize: TabBarIndicatorSize.label,
+                    //     ),
+                    // ),
+                ),
+                body: TabBarView(
+                    children: <Widget>[
+                        ListView(
+                            children: <Widget>[
+                                Text('第一个页面'),
+                            ],
+                        ),
+                        ListView(
+                            children: <Widget>[
+                                Text('第二个页面'),
+                            ],
+                        ),
+                        ListView(
+                            children: <Widget>[
+                                Text('第三个页面'),
+                            ],
+                        ),
+                    ],
                 ),
             ),
         );
