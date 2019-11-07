@@ -10,7 +10,7 @@ class ThemeConfig{
                 title: TextStyle(color: Color(0xff0d9aff), fontSize: 14.0)),
             splashColor: Colors.white,
             primaryColor: Color(0xff0d9aff),
-            primaryColorLight: Color(0xff0d9aff),
+            primaryColorLight: Color(0xff333333),
             appBarTheme: AppBarTheme(
                 color: Colors.white,
                 iconTheme: IconThemeData(
