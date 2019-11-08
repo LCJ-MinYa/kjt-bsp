@@ -28,7 +28,7 @@ class _OrderScreenState extends State<OrderScreen> with AutomaticKeepAliveClient
                     ),
                     unselectedLabelColor: Theme.of(context).primaryColorLight,
                     unselectedLabelStyle: TextStyle(
-                        fontSize: UISize.size(28)
+                        fontSize: UISize.size(32)
                     ),
                     indicatorSize: TabBarIndicatorSize.label,
                 ), preferredSize: Size(0, 0),
@@ -47,7 +47,7 @@ class _OrderScreenState extends State<OrderScreen> with AutomaticKeepAliveClient
             //         ),
             //         unselectedLabelColor: Theme.of(context).primaryColorLight,
             //         unselectedLabelStyle: TextStyle(
-            //             fontSize: UISize.size(28)
+            //             fontSize: UISize.size(32)
             //         ),
             //         indicatorSize: TabBarIndicatorSize.label,
             //     ),
