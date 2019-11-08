@@ -1,0 +1,33 @@
+import 'package:flutter/material.dart';
+
+class LaunchImageScreen extends StatefulWidget {
+    @override
+    _LaunchImageScreenState createState() => _LaunchImageScreenState();
+}
+
+class _LaunchImageScreenState extends State<LaunchImageScreen> {
+    @override
+    void initState() {
+        super.initState();
+        _startHome();
+    }
+
+    @override
+    Widget build(BuildContext context) {
+        return Scaffold(
+            body: Image.asset(
+                'lib/images/launch/LaunchImage.png',
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.fill,
+            ),
+        );
+    }
+
+    //显示2秒后跳转到HomeTabPage
+    _startHome() async {
+        await Future.delayed(const Duration(milliseconds: 2000), () {
+            Navigator.pushReplacementNamed(context, '/tabbar');
+        });
+    }
+}

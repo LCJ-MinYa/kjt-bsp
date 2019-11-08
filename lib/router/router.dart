@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../screen/launch/launchImageScreen.dart';
+
 import '../screen/tabbar/tabNavScreen.dart';
 
 import '../screen/mine/mineMessageScreen.dart';
@@ -15,7 +18,8 @@ class RouteConfig{
     static final initRouteName = '/';
 
     static final Map<String, WidgetBuilder> router = {
-        '/': (BuildContext context) => TabNavScreen(),
+        '/': (BuildContext context) => LaunchImageScreen(),
+        '/tabbar': (BuildContext context) => TabNavScreen(),
         '/mineMessage': (BuildContext context) => MineMessageScreen(),
         '/aboutUs': (BuildContext context) => AboutUsScreen(),
         '/feedback': (BuildContext context) => FeedbackScreen(),
@@ -46,6 +50,11 @@ class RouteConfig{
             }else{
                 //不带参数的处理方式
                 switch(name){
+                    case '/':
+                        route = FadeRoute(
+                            builder: (context) => pageContentBuilder(context),
+                        );
+                        break;  
                     case '/login':
                         route = CupertinoPageRoute(
                             builder: (context) => pageContentBuilder(context),
@@ -61,5 +70,50 @@ class RouteConfig{
             }
         }
         return route;
+    }
+}
+
+class FadeRoute extends PageRoute {
+    FadeRoute({
+        @required this.builder,
+        this.transitionDuration = Duration.zero,
+        this.opaque = false,
+        this.barrierDismissible = false,
+        this.barrierColor,
+        this.barrierLabel,
+        this.maintainState = true,
+    });
+
+    final WidgetBuilder builder;
+
+    @override
+    final Duration transitionDuration;
+
+    @override
+    final bool opaque;
+
+    @override
+    final bool barrierDismissible;
+
+    @override
+    final Color barrierColor;
+
+    @override
+    final String barrierLabel;
+
+    @override
+    final bool maintainState;
+
+    @override
+    Widget buildPage(BuildContext context, Animation<double> animation,
+        Animation<double> secondaryAnimation) => builder(context);
+
+    @override
+    Widget buildTransitions(BuildContext context, Animation<double> animation,
+        Animation<double> secondaryAnimation, Widget child) {
+        return FadeTransition( 
+            opacity: animation,
+            child: builder(context),
+        );
     }
 }
