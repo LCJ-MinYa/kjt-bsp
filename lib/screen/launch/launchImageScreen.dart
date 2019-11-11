@@ -14,14 +14,7 @@ class _LaunchImageScreenState extends State<LaunchImageScreen> {
 
     @override
     Widget build(BuildContext context) {
-        return Scaffold(
-            body: Image.asset(
-                'lib/images/launch/LaunchImage.png',
-                width: double.infinity,
-                height: double.infinity,
-                fit: BoxFit.fill,
-            ),
-        );
+        return Container(width: 0, height: 0);
     }
 
     //显示2秒后跳转到HomeTabPage
