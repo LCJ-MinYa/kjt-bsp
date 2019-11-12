@@ -28,9 +28,11 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="YRO-k0-Ey4" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="1a2-6s-vTC"/>
+                            <constraint firstItem="YRO-k0-Ey4" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="2Q1-GJ-h2w"/>
                             <constraint firstItem="YRO-k0-Ey4" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="4X2-HB-R7a"/>
-                            <constraint firstItem="YRO-k0-Ey4" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="6Rh-zq-o3V"/>
-                            <constraint firstAttribute="bottom" secondItem="YRO-k0-Ey4" secondAttribute="bottom" id="gSE-mm-OJM"/>
+                            <constraint firstItem="YRO-k0-Ey4" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Pr0-s6-jTw"/>
+                            <constraint firstAttribute="bottom" secondItem="YRO-k0-Ey4" secondAttribute="bottom" id="R9F-5u-E63"/>
+                            <constraint firstAttribute="trailing" secondItem="YRO-k0-Ey4" secondAttribute="trailing" id="wTJ-3k-8AY"/>
                         </constraints>
                     </view>
                 </viewController>
