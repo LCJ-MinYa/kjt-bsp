@@ -4,6 +4,7 @@ import './router.dart';
 import '../styles/theme.dart';
 
 class App extends StatelessWidget {
+
     @override
     Widget build(BuildContext context) {
         debugPaintSizeEnabled = false;

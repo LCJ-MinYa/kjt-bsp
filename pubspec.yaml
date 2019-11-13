@@ -60,6 +60,9 @@ flutter:
     # mine
     - lib/images/mine/
 
+    # order
+    - lib/images/order/
+
     # login
     - lib/images/login/
 

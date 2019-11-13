@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kjt_bsp/config/appConfig.dart';
 
 class LaunchImageScreen extends StatefulWidget {
     @override
@@ -15,7 +16,7 @@ class _LaunchImageScreenState extends State<LaunchImageScreen> {
     @override
     Widget build(BuildContext context) {
         return Image.asset(
-            'lib/images/launch/LaunchImage.png',
+            AppConfig.launchImgUrl + 'LaunchImage.png',
             fit: BoxFit.fill
         );
     }
