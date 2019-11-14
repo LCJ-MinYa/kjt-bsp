@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kjt_bsp/styles/uiSize.dart';
 
 import '../main/mainScreen.dart';
 import '../order/orderScreen.dart';
@@ -38,6 +39,8 @@ class _TabNavScreenState extends State<TabNavScreen> {
 
     @override
     Widget build(BuildContext context) {
+        UISize.init(context);
+
         return Scaffold(
             body: PageView(
                 physics: NeverScrollableScrollPhysics(),

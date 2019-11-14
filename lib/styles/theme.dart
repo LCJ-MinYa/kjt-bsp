@@ -7,7 +7,7 @@ class ThemeConfig{
             buttonColor: Color(0xff0d9aff), //按钮背景颜色
             accentTextTheme: TextTheme(
                 //默认文本样式
-                title: TextStyle(color: Color(0xff0d9aff), fontSize: 16.0)),
+                title: TextStyle(color: Color(0xff0d9aff), fontSize: 14.0)),
             splashColor: Colors.white,
             primaryColor: Color(0xff0d9aff),
             primaryColorLight: Color(0xff333333),
@@ -19,7 +19,8 @@ class ThemeConfig{
                 textTheme: TextTheme(
                     title: TextStyle(
                         color: Color(0xff373737),
-                        fontSize: 18.0
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold
                     )
                 ),
                 brightness: Brightness.light

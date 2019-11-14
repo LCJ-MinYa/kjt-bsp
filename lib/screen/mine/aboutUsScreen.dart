@@ -19,7 +19,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
             child: Text(
                 text,
                 style: TextStyle(
-                    fontSize: UISize.size(30),
+                    fontSize: UISize.size(28),
                     color: Color(0xff666666),
                     height: UISize.height(2.6),
                 ),

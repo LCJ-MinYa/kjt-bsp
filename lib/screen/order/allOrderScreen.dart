@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kjt_bsp/config/appConfig.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/button/smallDealButtonWidget.dart';
+import 'package:kjt_bsp/widget/tap/platformTapWidget.dart';
 
 class AllOrderScreen extends StatefulWidget {
     @override
@@ -40,7 +41,7 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
         'status': 2,
         'productList': [{
             'productName': '澳大利亚CRO椰子洗护 宝宝椰子洗发沐浴二合一500ml/瓶(白色)',
-            'price': 80.00,
+            'price': 400.00,
             'nums': 5,
             'productId': 'CEPUSHA10180092'
         },{
@@ -95,7 +96,8 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
                                             softWrap: true,
                                             style: TextStyle(
                                                 fontSize: UISize.size(28),
-                                                color: Color(0xff333333)
+                                                color: Color(0xff333333),
+                                                height: UISize.height(2.5)
                                             ),
                                         ), 
                                     ),
@@ -108,13 +110,15 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
                                                     '￥${item['price'].toStringAsFixed(2)}',
                                                     style: TextStyle(
                                                         fontSize: UISize.size(28),
-                                                        color: Color(0xff333333)
+                                                        color: Color(0xff333333),
+                                                        height: UISize.height(2.5)
                                                     )
                                                 ),
                                                 Text(
                                                     'x${item['nums']}',
                                                     style: TextStyle(
                                                         fontSize: UISize.size(28),
+                                                        height: UISize.height(2.5),
                                                         color: Color(0xff666666)
                                                     )
                                                 )
@@ -175,23 +179,35 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
         );
     }
 
+    /* 作废修改支付订单占位widget */
+    Widget _dealOrderPlaceholderWidget(index){
+        return Offstage(
+            offstage: _allOrderList[index]['status'] != 0,
+            child: Container(width: double.infinity, height: UISize.width(60),),
+        );
+    }
+
     /* 作废修改支付订单 */
     Widget _dealOrderWidget(index){
         if(_allOrderList[index]['status'] == 0){
-            return Padding(
-                padding: EdgeInsets.only(top: UISize.height(12)),
-                child: Row(
+            return Positioned(
+                bottom: UISize.height(32),
+                right: UISize.width(24), 
+                child:  Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                         SmallDealButtonWidget(
                             text: '作废',
                             borderColor: Color(0xffb3b3b3),
                             textColor: Color(0xffb3b3b3),
+                            onTap: (){print(123);},
                         ),
                         SmallDealButtonWidget(
+                            onTap: (){},
                             text: '修改',
                         ),
                         SmallDealButtonWidget(
+                            onTap: (){},
                             text: '支付',
                             bgColor: Theme.of(context).primaryColor,
                             textColor: Colors.white,
@@ -206,28 +222,57 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
 
     /* 订单列表item */
     Widget _orderItemWidget(index){
+        String imgUrl = AppConfig.orderImgUrl;
+        switch(_allOrderList[index]['status']){
+            case 0:
+                imgUrl += 'pay.png';
+                break;
+            case 1:
+                imgUrl += 'paid.png';
+                break;
+            case 2:
+                imgUrl += 'invalid.png';
+                break;
+        }
         return Padding(
             padding: EdgeInsets.only(top: UISize.width(index == 0 ? 0 : 32)),
-            child: Container(
-                padding: EdgeInsets.only(
-                    left: UISize.width(24),
-                    right: UISize.width(24),
-                    top: UISize.height(32),
-                    bottom: UISize.height(32)
-                ),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(8))
-                ),
-                child: Column(
-                    children: <Widget>[
-                        _orderNoWidget(index),
-                        _orderProductListWidget(index),
-                        _orderPriceWidget(index),
-                        _dealOrderWidget(index),
-                    ],
-                ),
-            )
+            child: Stack(
+                children: <Widget>[
+                    PlatformTapWidget(
+                        onTap: (){},
+                        child: Container(
+                            padding: EdgeInsets.only(
+                                left: UISize.width(24),
+                                right: UISize.width(24),
+                                top: UISize.height(32),
+                                bottom: UISize.height(32)
+                            ),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(8))
+                            ),
+                            child: Column(
+                                children: <Widget>[
+                                    _orderNoWidget(index),
+                                    _orderProductListWidget(index),
+                                    _orderPriceWidget(index),
+                                    _dealOrderPlaceholderWidget(index),
+                                ],
+                            ),
+                        ),
+                    ),
+                    _dealOrderWidget(index),
+                    Positioned(
+                        top: UISize.width(-5),
+                        right: UISize.width(24),
+                        child: Image.asset(
+                            imgUrl,
+                            width: UISize.width(80),
+                            height: UISize.width(80),
+                        ),
+                    ),
+                ],
+            ),
         );
     }
 
