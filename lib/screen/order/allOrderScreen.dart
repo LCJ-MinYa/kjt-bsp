@@ -241,7 +241,9 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
             child: Stack(
                 children: <Widget>[
                     PlatformTapWidget(
-                        onTap: (){},
+                        onTap: (){
+                            _goOrderDetailScreen(_allOrderList[index]['orderNo']);
+                        },
                         child: Container(
                             padding: EdgeInsets.only(
                                 left: UISize.width(24),
@@ -288,6 +290,16 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
             itemBuilder: (context, index){
                 return _orderItemWidget(index);
             },
+        );
+    }
+
+    _goOrderDetailScreen(orderNo){
+        Navigator.pushNamed(
+            context,
+            '/orderDetail',
+            arguments: {
+                'orderNo': orderNo
+            }
         );
     }
 }
