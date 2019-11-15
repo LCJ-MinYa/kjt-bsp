@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
+import 'package:kjt_bsp/widget/text/appBarTextWidget.dart';
 
 class AboutUsScreen extends StatefulWidget {
     @override
@@ -32,7 +33,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
         UISize.init(context);
         return Scaffold(
             appBar: AppBar(
-                title: Text('关于我们'),
+                title: AppBarTextWidget(title: '关于我们'),
             ),
             body: ListView.builder(
                 padding: EdgeInsets.all(UISize.width(20)),

@@ -24,12 +24,12 @@ class _OrderScreenState extends State<OrderScreen> with AutomaticKeepAliveClient
                     ],
                     labelColor: Theme.of(context).primaryColor,
                     labelStyle: TextStyle(
-                        fontSize: UISize.size(32),
+                        fontSize: UISize.appBarFontSize(),
                         fontWeight: FontWeight.bold
                     ),
                     unselectedLabelColor: Theme.of(context).primaryColorLight,
                     unselectedLabelStyle: TextStyle(
-                        fontSize: UISize.size(32),
+                        fontSize: UISize.appBarFontSize(),
                     ),
                     indicatorSize: TabBarIndicatorSize.label,
                 ), preferredSize: Size(0, 0),
