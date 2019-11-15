@@ -1,8 +1,5 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
-import 'package:kjt_bsp/styles/uiSize.dart';
 import './router.dart';
 import '../styles/theme.dart';
 

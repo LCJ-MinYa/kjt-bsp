@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/button/submitButton.dart';
 import 'package:kjt_bsp/widget/cell/textFieldCellWidget.dart';
+import 'package:kjt_bsp/widget/text/appBarTextWidget.dart';
 
 class ModifyPwdScreen extends StatefulWidget {
     @override
@@ -13,7 +14,7 @@ class _ModifyPwdScreenState extends State<ModifyPwdScreen> {
     Widget build(BuildContext context) {
         return Scaffold(
             appBar: AppBar(
-                title: Text('修改密码'),
+                title: AppBarTextWidget(title: '修改密码'),
             ),
             body: Column(
                 children: <Widget>[

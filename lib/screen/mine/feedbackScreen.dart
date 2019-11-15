@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kjt_bsp/widget/text/appBarTextWidget.dart';
 
 import '../../widget/tap/platformTapWidget.dart';
 import '../../widget/button/submitButton.dart';
@@ -132,7 +133,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
     Widget build(BuildContext context) {
         return Scaffold(
             appBar: AppBar(
-                title: Text('意见反馈'),
+                title: AppBarTextWidget(title: '意见反馈',),
             ),
             body: ListView(
                 padding: EdgeInsets.only(top: UISize.height(12)),

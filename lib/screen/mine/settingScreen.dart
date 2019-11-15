@@ -4,6 +4,7 @@ import 'package:kjt_bsp/common/cache.dart';
 import 'package:kjt_bsp/common/toast.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/cell/nameCellWidget.dart';
+import 'package:kjt_bsp/widget/text/appBarTextWidget.dart';
 import '../../widget/popup/alertDialogWidget.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -24,7 +25,7 @@ class _SettingScreenState extends State<SettingScreen> {
     Widget build(BuildContext context) {
         return Scaffold(
             appBar: AppBar(
-                title: Text('设置'),
+                title: AppBarTextWidget(title: '设置'),
             ),
             body: Column(
                 children: <Widget>[

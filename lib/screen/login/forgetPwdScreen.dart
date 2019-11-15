@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/button/submitButton.dart';
 import 'package:kjt_bsp/widget/cell/textFieldCellWidget.dart';
+import 'package:kjt_bsp/widget/text/appBarTextWidget.dart';
 
 class ForgetPwdScreen extends StatefulWidget {
     @override
@@ -13,7 +14,7 @@ class _ForgetPwdScreenState extends State<ForgetPwdScreen> {
     Widget build(BuildContext context) {
         return Scaffold(
             appBar: AppBar(
-                title: Text('忘记密码'),
+                title: AppBarTextWidget(title: '忘记密码'),
             ),
             body: Column(
                 children: <Widget>[

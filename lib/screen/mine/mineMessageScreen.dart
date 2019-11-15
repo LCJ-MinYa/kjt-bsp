@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
+import 'package:kjt_bsp/widget/text/appBarTextWidget.dart';
 import '../../widget/cell/nameCellWidget.dart';
 
 class MineMessageScreen extends StatefulWidget {
@@ -28,7 +29,7 @@ class _MineMessageScreenState extends State<MineMessageScreen> {
     Widget build(BuildContext context) {
         return Scaffold(
             appBar: AppBar(
-                title: Text('我的信息'),
+                title: AppBarTextWidget(title: '我的信息'),
             ),
             body: ListView(
                 children: <Widget>[
