@@ -102,8 +102,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
     @override
     Widget build(BuildContext context) {
-        UISize.init(context);
-
         return AnnotatedRegion<SystemUiOverlayStyle>(
             value: SystemUiOverlayStyle.dark,
             child: Scaffold(

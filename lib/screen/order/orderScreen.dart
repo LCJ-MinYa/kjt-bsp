@@ -59,7 +59,6 @@ class _OrderScreenState extends State<OrderScreen> with AutomaticKeepAliveClient
     @override
     Widget build(BuildContext context) {
         super.build(context);
-        UISize.init(context);
 
         return DefaultTabController(
             length: 3,

@@ -112,7 +112,6 @@ class MainScreenState extends State<MainScreen> with AutomaticKeepAliveClientMix
     @override
     Widget build(BuildContext context) {
         super.build(context);
-        UISize.init(context);
 
         return AnnotatedRegion<SystemUiOverlayStyle>(
             value: SystemUiOverlayStyle.light,

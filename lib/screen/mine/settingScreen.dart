@@ -22,8 +22,6 @@ class _SettingScreenState extends State<SettingScreen> {
 
     @override
     Widget build(BuildContext context) {
-        UISize.init(context);
-
         return Scaffold(
             appBar: AppBar(
                 title: Text('设置'),

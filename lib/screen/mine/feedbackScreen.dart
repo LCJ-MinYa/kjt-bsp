@@ -130,7 +130,6 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
 
     @override
     Widget build(BuildContext context) {
-        UISize.init(context);
         return Scaffold(
             appBar: AppBar(
                 title: Text('意见反馈'),

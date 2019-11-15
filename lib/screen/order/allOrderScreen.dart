@@ -279,7 +279,6 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
     @override
     Widget build(BuildContext context) {
         super.build(context);
-        UISize.init(context);
 
         return ListView.builder(
             padding: EdgeInsets.all(UISize.width(32)),

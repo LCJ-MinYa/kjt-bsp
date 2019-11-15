@@ -11,8 +11,6 @@ class ModifyPwdScreen extends StatefulWidget {
 class _ModifyPwdScreenState extends State<ModifyPwdScreen> {
     @override
     Widget build(BuildContext context) {
-        UISize.init(context);
-
         return Scaffold(
             appBar: AppBar(
                 title: Text('修改密码'),

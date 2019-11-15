@@ -11,8 +11,6 @@ class ForgetPwdScreen extends StatefulWidget {
 class _ForgetPwdScreenState extends State<ForgetPwdScreen> {
     @override
     Widget build(BuildContext context) {
-        UISize.init(context);
-
         return Scaffold(
             appBar: AppBar(
                 title: Text('忘记密码'),
