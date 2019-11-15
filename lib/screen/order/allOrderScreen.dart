@@ -157,14 +157,16 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
         return Container(
             padding: EdgeInsets.only(top: UISize.height(32)),
             alignment: Alignment.centerRight,
-            child: RichText(
-                text: TextSpan(
-                    text: '共$orderNums件商品合计:',
-                    style: TextStyle(
-                        color: Color(0xff333333),
-                        fontSize: UISize.size(28)
-                    ),
+            child: Text.rich(
+                TextSpan(
                     children: [
+                        TextSpan(
+                            text: '共$orderNums件商品合计:',
+                            style: TextStyle(
+                                color: Color(0xff333333),
+                                fontSize: UISize.size(28)
+                            )
+                        ),
                         TextSpan(
                             text: '￥${orderPrice.toStringAsFixed(2)}',
                             style: TextStyle(

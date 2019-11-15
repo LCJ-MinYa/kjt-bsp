@@ -24,4 +24,8 @@ class UISize{
     static size(double size){
         return ScreenUtil.getInstance().setSp(size);
     }
+
+    static appBarFontSize(){
+        return size(32);
+    }
 }
