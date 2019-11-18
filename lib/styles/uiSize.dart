@@ -28,4 +28,8 @@ class UISize{
     static appBarFontSize(){
         return size(32);
     }
+
+    static getTextScaleFactory(){
+        return ScreenUtil.textScaleFactory;
+    }
 }

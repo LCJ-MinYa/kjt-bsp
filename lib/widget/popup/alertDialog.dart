@@ -9,6 +9,7 @@ showAlertDialog(BuildContext context, String title, String content, Function con
             return CupertinoAlertDialog(
                 title: Text(
                     title,
+                    textScaleFactor: UISize.getTextScaleFactory(),
                     style: TextStyle(
                         fontSize: UISize.size(32),
                     ),
@@ -21,9 +22,10 @@ showAlertDialog(BuildContext context, String title, String content, Function con
                     CupertinoDialogAction(
                         child: Text(
                             '取消',
+                            textScaleFactor: UISize.getTextScaleFactory(),
                             style: TextStyle(
                                 color: Color(0xff333333),
-                                fontSize: UISize.size(26)
+                                fontSize: UISize.size(28)
                             ),
                         ),
                         onPressed: (){
@@ -33,8 +35,9 @@ showAlertDialog(BuildContext context, String title, String content, Function con
                     CupertinoDialogAction(
                         child: Text(
                             '确认',
+                            textScaleFactor: UISize.getTextScaleFactory(),
                             style: TextStyle(
-                                fontSize: UISize.size(26)
+                                fontSize: UISize.size(28)
                             ),
                         ),
                         onPressed: (){
