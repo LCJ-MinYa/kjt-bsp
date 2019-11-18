@@ -55,6 +55,7 @@ class RouteConfig{
                 //不带参数的处理方式
                 switch(name){
                     case '/':
+                    // case '/tabbar':
                         route = FadeRoute(
                             builder: (context) => pageContentBuilder(context),
                         );
