@@ -7,15 +7,23 @@ showAlertDialog(BuildContext context, String title, String content, Function con
         context: context,
         builder: (BuildContext context){
             return CupertinoAlertDialog(
-                title: Text(title),
-                content: Text(content),
+                title: Text(
+                    title,
+                    style: TextStyle(
+                        fontSize: UISize.size(32),
+                    ),
+                ),
+                content: Padding(
+                    padding: EdgeInsets.only(top: UISize.width(5)),
+                    child: Text(content),
+                ),
                 actions: <Widget>[
                     CupertinoDialogAction(
                         child: Text(
                             '取消',
                             style: TextStyle(
                                 color: Color(0xff333333),
-                                fontSize: UISize.size(28)
+                                fontSize: UISize.size(26)
                             ),
                         ),
                         onPressed: (){
@@ -26,7 +34,7 @@ showAlertDialog(BuildContext context, String title, String content, Function con
                         child: Text(
                             '确认',
                             style: TextStyle(
-                                fontSize: UISize.size(28)
+                                fontSize: UISize.size(26)
                             ),
                         ),
                         onPressed: (){

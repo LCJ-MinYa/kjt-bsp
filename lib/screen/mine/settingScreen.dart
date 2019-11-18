@@ -4,8 +4,8 @@ import 'package:kjt_bsp/common/cache.dart';
 import 'package:kjt_bsp/common/toast.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/cell/nameCellWidget.dart';
+import 'package:kjt_bsp/widget/popup/alertDialog.dart';
 import 'package:kjt_bsp/widget/text/appBarTextWidget.dart';
-import '../../widget/popup/alertDialogWidget.dart';
 
 class SettingScreen extends StatefulWidget {
     @override
