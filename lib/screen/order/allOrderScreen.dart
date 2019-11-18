@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kjt_bsp/config/appConfig.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/button/smallDealButtonWidget.dart';
+import 'package:kjt_bsp/widget/order/orderPriceWidget.dart';
+import 'package:kjt_bsp/widget/order/orderProductListWidget.dart';
 import 'package:kjt_bsp/widget/tap/platformTapWidget.dart';
 
 class AllOrderScreen extends StatefulWidget {
@@ -75,112 +77,6 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
         );
     }
 
-    /* 订单商品列表 */
-    Widget _orderProductListWidget(index){
-        Widget _productContent;
-        List<Widget> _proudctListWidget = [];
-        for(var item in _allOrderList[index]['productList']){
-            _proudctListWidget.add(
-                Padding(
-                    padding: EdgeInsets.only(top: UISize.height(24)),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                            Row(
-                                children: <Widget>[
-                                    Expanded(
-                                        child: Text(
-                                            item['productName'],
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                            softWrap: true,
-                                            style: TextStyle(
-                                                fontSize: UISize.size(28),
-                                                color: Color(0xff333333),
-                                                height: UISize.height(2.5)
-                                            ),
-                                        ), 
-                                    ),
-                                    Padding(
-                                        padding: EdgeInsets.only(left: UISize.width(35)),
-                                        child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.end,
-                                            children: <Widget>[
-                                                Text(
-                                                    '￥${item['price'].toStringAsFixed(2)}',
-                                                    style: TextStyle(
-                                                        fontSize: UISize.size(28),
-                                                        color: Color(0xff333333),
-                                                        height: UISize.height(2.5)
-                                                    )
-                                                ),
-                                                Text(
-                                                    'x${item['nums']}',
-                                                    style: TextStyle(
-                                                        fontSize: UISize.size(28),
-                                                        height: UISize.height(2.5),
-                                                        color: Color(0xff666666)
-                                                    )
-                                                )
-                                            ],
-                                        ),
-                                    ),
-                                ],
-                            ),
-                            SizedBox(height: UISize.height(12)),
-                            Text(
-                                '商品ID: ${item['productId']}',
-                                style: TextStyle(
-                                    fontSize: UISize.size(24),
-                                    color: Color(0xff666666)
-                                )
-                            ),
-                        ],
-                    )
-                )
-            );
-        }
-        _productContent = Column(
-            children: _proudctListWidget,
-        );
-        return _productContent;
-    }
-
-    /* 订单价格 */
-    Widget _orderPriceWidget(index){
-        int orderNums = 0;
-        double orderPrice = 0;
-        for(var item in _allOrderList[index]['productList']){
-            orderNums += item['nums']; 
-            orderPrice += item['price'];
-        }
-        return Container(
-            padding: EdgeInsets.only(top: UISize.height(32)),
-            alignment: Alignment.centerRight,
-            child: Text.rich(
-                TextSpan(
-                    children: [
-                        TextSpan(
-                            text: '共$orderNums件商品合计:',
-                            style: TextStyle(
-                                color: Color(0xff333333),
-                                fontSize: UISize.size(28)
-                            )
-                        ),
-                        TextSpan(
-                            text: '￥${orderPrice.toStringAsFixed(2)}',
-                            style: TextStyle(
-                                color: Color(0xff333333),
-                                fontSize: UISize.size(28),
-                                fontWeight: FontWeight.bold
-                            )
-                        )
-                    ]
-                )
-            ),
-        );
-    }
-
     /* 作废修改支付订单占位widget */
     Widget _dealOrderPlaceholderWidget(index){
         return Offstage(
@@ -202,7 +98,9 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
                             text: '作废',
                             borderColor: Color(0xffb3b3b3),
                             textColor: Color(0xffb3b3b3),
-                            onTap: (){print(123);},
+                            onTap: (){
+                                
+                            },
                         ),
                         SmallDealButtonWidget(
                             onTap: (){},
@@ -258,8 +156,8 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
                             child: Column(
                                 children: <Widget>[
                                     _orderNoWidget(index),
-                                    _orderProductListWidget(index),
-                                    _orderPriceWidget(index),
+                                    OrderProductListWidget(orderMessage: _allOrderList[index]),
+                                    OrderPriceWidget(orderMessage: _allOrderList[index]),
                                     _dealOrderPlaceholderWidget(index),
                                 ],
                             ),

@@ -23,7 +23,7 @@ class _LaunchImageScreenState extends State<LaunchImageScreen> {
 
     //显示2秒后跳转到HomeTabPage
     _startHome() async {
-        await Future.delayed(const Duration(milliseconds: 2000), () {
+        await Future.delayed(const Duration(milliseconds: 10), () {
             Navigator.pushReplacementNamed(context, '/tabbar');
         });
     }
