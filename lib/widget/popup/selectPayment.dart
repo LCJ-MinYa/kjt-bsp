@@ -163,12 +163,18 @@ class _SelectPaymentWidgetState extends State<SelectPaymentWidget> {
                                     child: Icon(
                                         Icons.cancel,
                                         color: Color(0xffe0e4e6),
-                                        size: UISize.size(46),
+                                        size: UISize.size(42),
                                     ),
                                 )
                             ],
                         ),
-                        _showPaymentWithStatus(),
+                        AnimatedSwitcher(
+                            transitionBuilder: (child, animation){
+                                return ScaleTransition(child: child, scale: animation);
+                            },
+                            duration: Duration(milliseconds: 300),
+                            child: _showPaymentWithStatus(),
+                        )
                     ],
                 ),
             ),
