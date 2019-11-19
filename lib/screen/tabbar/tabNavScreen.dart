@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:kjt_bsp/common/androidBackDeakTop.dart';
+import 'package:kjt_bsp/common/toast.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 
 import '../main/mainScreen.dart';
@@ -11,6 +14,8 @@ class TabNavScreen extends StatefulWidget {
 }
 
 class _TabNavScreenState extends State<TabNavScreen> {
+    DateTime lastPopTime;
+
     final List<BottomNavigationBarItem> _bottomTabList = [
         BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -41,22 +46,37 @@ class _TabNavScreenState extends State<TabNavScreen> {
     Widget build(BuildContext context) {
         UISize.init(context);
 
-        return Scaffold(
-            body: PageView(
-                physics: NeverScrollableScrollPhysics(),
-                controller: _pageController,
-                children: _screenList,
-                // onPageChanged: (index){
+        return WillPopScope(
+            onWillPop: () async {
+                // 点击返回键的操作
+                if(lastPopTime == null || DateTime.now().difference(lastPopTime) > Duration(seconds: 2)){
+                    lastPopTime = DateTime.now();
+                    toast('再按一次退出APP');
+                }else{
+                    lastPopTime = DateTime.now();
 
-                // },
-            ),
-            bottomNavigationBar: BottomNavigationBar(
-                // selectedItemColor: Theme.of(context).primaryColorLight,
-                backgroundColor: Color(0xFFFAFAFA),
-                items: _bottomTabList,
-                currentIndex: _currentIndex,
-                onTap: _toggleTab,
-            )
+                    //设置为返回不退出app
+                    AndroidBackTop.backDeskTop();
+                }
+                return false;
+            },
+            child: Scaffold(
+                body: PageView(
+                    physics: NeverScrollableScrollPhysics(),
+                    controller: _pageController,
+                    children: _screenList,
+                    // onPageChanged: (index){
+
+                    // },
+                ),
+                bottomNavigationBar: BottomNavigationBar(
+                    // selectedItemColor: Theme.of(context).primaryColorLight,
+                    backgroundColor: Color(0xFFFAFAFA),
+                    items: _bottomTabList,
+                    currentIndex: _currentIndex,
+                    onTap: _toggleTab,
+                )
+            ) 
         );
     }
 
