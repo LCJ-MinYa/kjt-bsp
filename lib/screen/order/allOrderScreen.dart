@@ -4,6 +4,8 @@ import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/button/smallDealButtonWidget.dart';
 import 'package:kjt_bsp/widget/order/orderPriceWidget.dart';
 import 'package:kjt_bsp/widget/order/orderProductListWidget.dart';
+import 'package:kjt_bsp/widget/popup/alertDialog.dart';
+import 'package:kjt_bsp/widget/popup/selectPayment.dart';
 import 'package:kjt_bsp/widget/tap/platformTapWidget.dart';
 
 class AllOrderScreen extends StatefulWidget {
@@ -99,7 +101,7 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
                             borderColor: Color(0xffb3b3b3),
                             textColor: Color(0xffb3b3b3),
                             onTap: (){
-                                
+                                showAlertDialog(context, '订单作废', '确认作废此订单？', (){});
                             },
                         ),
                         SmallDealButtonWidget(
@@ -107,7 +109,9 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
                             text: '修改',
                         ),
                         SmallDealButtonWidget(
-                            onTap: (){},
+                            onTap: (){
+                                showSelectPayment(context);
+                            },
                             text: '支付',
                             bgColor: Theme.of(context).primaryColor,
                             textColor: Colors.white,
