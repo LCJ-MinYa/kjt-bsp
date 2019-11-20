@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kjt_bsp/config/appConfig.dart';
+import 'package:kjt_bsp/config/imgConfig.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/button/smallDealButtonWidget.dart';
 import 'package:kjt_bsp/widget/order/orderPriceWidget.dart';
@@ -61,7 +61,7 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
         return Row(
             children: <Widget>[
                 Image.asset(
-                    AppConfig.orderImgUrl + 'orderNo.png',
+                    ImgConfig.orderNo,
                     width: UISize.width(32),
                     height: UISize.width(32),
                 ),
@@ -126,16 +126,16 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
 
     /* 订单列表item */
     Widget _orderItemWidget(index){
-        String imgUrl = AppConfig.orderImgUrl;
+        String imgUrl;
         switch(_allOrderList[index]['status']){
             case 0:
-                imgUrl += 'pay.png';
+                imgUrl = ImgConfig.orderPay;
                 break;
             case 1:
-                imgUrl += 'paid.png';
+                imgUrl = ImgConfig.orderPaid;
                 break;
             case 2:
-                imgUrl += 'invalid.png';
+                imgUrl = ImgConfig.orderInvalid;
                 break;
         }
         return Padding(

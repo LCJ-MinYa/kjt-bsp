@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kjt_bsp/config/appConfig.dart';
+import 'package:kjt_bsp/config/imgConfig.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/tap/platformTapWidget.dart';
 
@@ -25,8 +25,8 @@ class _SelectPaymentWidgetState extends State<SelectPaymentWidget> {
     Widget _paymentContentWidget(){
         return Column(
             children: <Widget>[
-                _paymentCellWidget('alipay.png', '支付宝', _showPaySuccessWidget),
-                _paymentCellWidget('wechat.png', '微信支付', _showPayFailedWidget),
+                _paymentCellWidget(ImgConfig.orderAlipay, '支付宝', _showPaySuccessWidget),
+                _paymentCellWidget(ImgConfig.orderWechat, '微信支付', _showPayFailedWidget),
             ], 
         );
     }
@@ -41,7 +41,7 @@ class _SelectPaymentWidgetState extends State<SelectPaymentWidget> {
                 child: Row(
                     children: <Widget>[
                         Image.asset(
-                            AppConfig.orderImgUrl + imgName,
+                            imgName,
                             width: UISize.width(40),
                             height: UISize.width(40),
                             fit: BoxFit.cover,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:kjt_bsp/config/imgConfig.dart';
 import '../../styles/uiSize.dart';
-import '../../config/appConfig.dart';
 
 class MainScreen extends StatefulWidget {
     @override
@@ -15,25 +15,25 @@ class MainScreenState extends State<MainScreen> with AutomaticKeepAliveClientMix
     bool get wantKeepAlive => true;
     
     final List _bannerImgList = [
-        AppConfig.mainImgUrl + "banner1.jpg",
-        AppConfig.mainImgUrl + "banner2.jpg",
-        AppConfig.mainImgUrl + "banner3.jpg"
+        ImgConfig.mainBanner1,
+        ImgConfig.mainBanner2,
+        ImgConfig.mainBanner3,
     ];
 
     final List<Map> _moduleList = [{
-        'url': AppConfig.mainImgUrl + 'quick_start.png',
+        'url': ImgConfig.mainQuickStart,
         'name': '快速入门'
     },{
-        'url': AppConfig.mainImgUrl + 'latest_notice.png',
+        'url': ImgConfig.mainLatestNotice,
         'name': '最新通知'
     },{
-        'url': AppConfig.mainImgUrl + 'order_entry.png',
+        'url': ImgConfig.mainOrderEntry,
         'name': '录入订单'
     },{
-        'url': AppConfig.mainImgUrl + 'data_center.png',
+        'url': ImgConfig.mainDataCenter,
         'name': '数据中心'
     },{
-        'url': AppConfig.mainImgUrl + 'quick_start.png',
+        'url': ImgConfig.mainQuickStart,
         'name': '支付订单'
     }];
 

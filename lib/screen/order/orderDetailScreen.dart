@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kjt_bsp/config/appConfig.dart';
+import 'package:kjt_bsp/config/imgConfig.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/button/smallDealButtonWidget.dart';
 import 'package:kjt_bsp/widget/order/orderPriceWidget.dart';
@@ -168,7 +168,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                             right: 0,
                             top: 0,
                             child: Image.asset(
-                                AppConfig.orderImgUrl + 'pay.png',
+                                ImgConfig.orderPay,
                                 width: UISize.width(120),
                                 height: UISize.width(120),
                                 fit: BoxFit.contain,

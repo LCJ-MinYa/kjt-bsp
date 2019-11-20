@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kjt_bsp/config/imgConfig.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/button/submitButton.dart';
 import 'package:kjt_bsp/widget/input/textFieldWidget.dart';
 import 'package:kjt_bsp/widget/tap/platformTapWidget.dart';
-import '../../config/appConfig.dart';
 
 class LoginScreen extends StatefulWidget {
     @override
@@ -19,7 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 AspectRatio(
                     aspectRatio: 375/294,
                     child: Image.asset(
-                        AppConfig.loginImgUrl + 'banner.png',
+                        ImgConfig.loginBanner,
                         fit: BoxFit.cover,
                     ),
                 ),
