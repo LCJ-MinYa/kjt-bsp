@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kjt_bsp/config/appConfig.dart';
 import 'package:kjt_bsp/config/imgConfig.dart';
 
 class LaunchImageScreen extends StatefulWidget {
@@ -23,7 +24,7 @@ class _LaunchImageScreenState extends State<LaunchImageScreen> {
 
     //显示2秒后跳转到HomeTabPage
     _startHome() async {
-        await Future.delayed(const Duration(milliseconds: 2000), () {
+        await Future.delayed(Duration(milliseconds: AppConfig.launchImageTime), () {
             Navigator.pushReplacementNamed(context, '/tabbar');
         });
     }
