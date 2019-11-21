@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kjt_bsp/common/httpRequest.dart';
+import 'package:kjt_bsp/config/apiConfig.dart';
 import 'package:kjt_bsp/config/imgConfig.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/button/smallDealButtonWidget.dart';
@@ -21,6 +23,9 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     @override
     void initState() {
         super.initState();
+        HttpRequest.post(ApiConfig.orderList, {
+            'pageIndex': 1
+        });
     }
 
     final Map _orderDetailMap = {

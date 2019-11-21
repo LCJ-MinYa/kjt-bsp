@@ -7,6 +7,7 @@ class AppConfig{
     //是否为正式环境
     static final bool isRelease = bool.fromEnvironment('dart.vm.product');
 
+    //公用请求地址
     static final String apiBaseUrl = isRelease ? 'https://www.fastmock.site/mock/2ee9ed1c38d8955e6d014590824d76a9/api' : 'https://www.fastmock.site/mock/2ee9ed1c38d8955e6d014590824d76a9/api';
     //开发环境 https://www.fastmock.site/mock/2ee9ed1c38d8955e6d014590824d76a9/api
     //正式环境 https://www.fastmock.site/mock/2ee9ed1c38d8955e6d014590824d76a9/api

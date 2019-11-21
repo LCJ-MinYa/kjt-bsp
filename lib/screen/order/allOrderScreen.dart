@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:kjt_bsp/config/imgConfig.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/button/smallDealButtonWidget.dart';
@@ -186,13 +187,23 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
     Widget build(BuildContext context) {
         super.build(context);
 
-        return ListView.builder(
-            padding: EdgeInsets.all(UISize.width(32)),
-            itemCount: _allOrderList.length,
-            itemBuilder: (context, index){
-                return _orderItemWidget(index);
+        return EasyRefresh.custom(
+            onRefresh: () async{
+                return false;
             },
-        );
+            onLoad: () async{
+                return false;
+            },
+            slivers: <Widget>[
+                ListView.builder(
+                    padding: EdgeInsets.all(UISize.width(32)),
+                    itemCount: _allOrderList.length,
+                    itemBuilder: (context, index){
+                        return _orderItemWidget(index);
+                    },
+                )
+            ],  
+        ); 
     }
 
     _goOrderDetailScreen(orderNo){
