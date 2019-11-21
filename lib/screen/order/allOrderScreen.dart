@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:kjt_bsp/config/imgConfig.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/button/smallDealButtonWidget.dart';
+import 'package:kjt_bsp/widget/list/refreshScreen.dart';
 import 'package:kjt_bsp/widget/order/orderPriceWidget.dart';
 import 'package:kjt_bsp/widget/order/orderProductListWidget.dart';
 import 'package:kjt_bsp/widget/popup/alertDialog.dart';
@@ -18,7 +18,9 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
     @override
     bool get wantKeepAlive => true;
     
-    final List _allOrderList = [{
+    List allOrderList = [];
+
+    List testList = [{
         'orderNo': 201907071110000,
         'status': 0,
         'productList': [{
@@ -57,41 +59,6 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
         }],
     }];
 
-    EasyRefreshController _controller;
-    ScrollController _scrollController;
-
-    // 条目总数
-    int _count = 5;
-    // 反向
-    bool _reverse = false;
-    // 方向
-    Axis _direction = Axis.vertical;
-    // Header浮动
-    bool _headerFloat = false;
-    // 无限加载
-    bool _enableInfiniteLoad = true;
-    // 控制结束
-    bool _enableControlFinish = false;
-    // 任务独立
-    bool _taskIndependence = false;
-    // 震动
-    bool _vibration = true;
-    // 是否开启刷新
-    bool _enableRefresh = true;
-    // 是否开启加载
-    bool _enableLoad = true;
-    // 顶部回弹
-    bool _topBouncing = true;
-    // 底部回弹
-    bool _bottomBouncing = true;
-
-    @override
-    void initState() {
-        super.initState();
-        _controller = EasyRefreshController();
-        _scrollController = ScrollController();
-    }
-
     /* 订单号 */
     Widget _orderNoWidget(index){
         return Row(
@@ -104,7 +71,7 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
                 Padding(
                     padding: EdgeInsets.only(left: UISize.width(16)),
                     child: Text(
-                        '订单号: ${_allOrderList[index]['orderNo']}',
+                        '订单号: ${allOrderList[index]['orderNo']}',
                         style: TextStyle(
                             fontSize: UISize.size(24),
                             color: Color(0xff333333),
@@ -118,14 +85,14 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
     /* 作废修改支付订单占位widget */
     Widget _dealOrderPlaceholderWidget(index){
         return Offstage(
-            offstage: _allOrderList[index]['status'] != 0,
+            offstage: allOrderList[index]['status'] != 0,
             child: Container(width: double.infinity, height: UISize.width(60),),
         );
     }
 
     /* 作废修改支付订单 */
     Widget _dealOrderWidget(index){
-        if(_allOrderList[index]['status'] == 0){
+        if(allOrderList[index]['status'] == 0){
             return Positioned(
                 bottom: UISize.height(32),
                 right: UISize.width(24), 
@@ -163,7 +130,7 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
     /* 订单列表item */
     Widget _orderItemWidget(index){
         String imgUrl;
-        switch(_allOrderList[index]['status']){
+        switch(allOrderList[index]['status']){
             case 0:
                 imgUrl = ImgConfig.orderPay;
                 break;
@@ -180,7 +147,7 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
                 children: <Widget>[
                     PlatformTapWidget(
                         onTap: (){
-                            _goOrderDetailScreen(_allOrderList[index]['orderNo']);
+                            _goOrderDetailScreen(allOrderList[index]['orderNo']);
                         },
                         child: Container(
                             padding: EdgeInsets.only(
@@ -196,8 +163,8 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
                             child: Column(
                                 children: <Widget>[
                                     _orderNoWidget(index),
-                                    OrderProductListWidget(orderMessage: _allOrderList[index]),
-                                    OrderPriceWidget(orderMessage: _allOrderList[index]),
+                                    OrderProductListWidget(orderMessage: allOrderList[index]),
+                                    OrderPriceWidget(orderMessage: allOrderList[index]),
                                     _dealOrderPlaceholderWidget(index),
                                 ],
                             ),
@@ -222,40 +189,23 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
     Widget build(BuildContext context) {
         super.build(context);
 
-        return EasyRefresh.custom(
-            controller: _controller,
-            scrollController: _scrollController,
-            topBouncing: _topBouncing,
-            bottomBouncing: _bottomBouncing,
-            onRefresh: _enableRefresh ? () async {
-                await Future.delayed(Duration(seconds: 2), () {
-                    setState(() {
-                        _count = 5;
-                    });
-                    if (!_enableControlFinish) {
-                        _controller.resetLoadState();
-                        _controller.finishRefresh();
-                    }
-                });
-            }: null,
-            onLoad: _enableLoad ? () async {
-                await Future.delayed(Duration(seconds: 2), () {
-                    setState(() {
-                        _count += 5;
-                    });
-                    if (!_enableControlFinish) {
-                        _controller.finishLoad(noMore: _count >= 80);
-                    }
-                });
-            }: null,
-            slivers: <Widget>[
-                SliverList(
-                    delegate: SliverChildBuilderDelegate((context, index){
-                            return _orderItemWidget(2);
-                    },childCount: _count),
-                )
-            ],  
-        ); 
+        return RefreshList(
+            data: allOrderList,
+            child: _orderItemWidget,
+            onRefresh: _doReq,
+            onLoad: _doReq,
+        );
+    }
+
+    Future _doReq(isRefresh) async{
+        await Future.delayed(Duration(seconds: 2));
+        setState(() {
+            if(isRefresh){
+                allOrderList = testList;
+            }else{
+                allOrderList += testList;
+            }
+        });
     }
 
     _goOrderDetailScreen(orderNo){
