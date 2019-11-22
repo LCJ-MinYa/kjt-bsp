@@ -58,8 +58,9 @@ class _RefreshListState extends State<RefreshList> {
                     width: UISize.width(100),
                     height: UISize.width(100),
                     child: SpinKitPouringHourglass(
-                        color: _textColor,
+                        color: Color(0xff757575),
                         size: UISize.size(70),
+                        
                     ),
                 ),
                 Container(

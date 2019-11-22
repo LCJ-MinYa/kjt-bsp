@@ -10,6 +10,14 @@ import 'package:kjt_bsp/widget/popup/selectPayment.dart';
 import 'package:kjt_bsp/widget/tap/platformTapWidget.dart';
 
 class AllOrderScreen extends StatefulWidget {
+    final int status;
+
+    AllOrderScreen({
+        Key key, 
+        this.status
+    }) : super(key: key);
+
+
     @override
     _AllOrderScreenState createState() => _AllOrderScreenState();
 }
@@ -199,6 +207,9 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
 
     Future _doReq(isRefresh) async{
         await Future.delayed(Duration(seconds: 1));
+        if(widget.status != 0){
+            return;
+        }
         setState(() {
             if(isRefresh){
                 allOrderList = testList;

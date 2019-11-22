@@ -66,7 +66,7 @@ class _OrderScreenState extends State<OrderScreen> with AutomaticKeepAliveClient
                 appBar: _orderTabbarWidget(),
                 body: TabBarView(
                     children: <Widget>[
-                        AllOrderScreen(),
+                        AllOrderScreen(status: 0),
                         AllOrderScreen(),
                         AllOrderScreen(),
                     ],
