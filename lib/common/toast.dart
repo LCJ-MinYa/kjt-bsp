@@ -4,7 +4,7 @@ toast(msg){
 	Fluttertoast.showToast(
 		msg: msg,
 		toastLength: Toast.LENGTH_SHORT,
-		timeInSecForIos: 2,
+		timeInSecForIos: 3,
 		fontSize: 16.0
 	);
 }

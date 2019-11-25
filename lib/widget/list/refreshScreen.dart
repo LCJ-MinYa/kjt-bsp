@@ -30,10 +30,8 @@ class _RefreshListState extends State<RefreshList> {
     EasyRefreshController _controller;
     ScrollController _scrollController;
 
-    // 控制结束
-    bool _enableControlFinish = false;
     // 震动
-    bool _vibration = true;
+    bool _vibration = false;
     // 顶部回弹
     bool _topBouncing = true;
     // 底部回弹
@@ -42,6 +40,8 @@ class _RefreshListState extends State<RefreshList> {
     bool _showEmptyWidget = false;
     //文本颜色
     Color _textColor = Color(0xff666666);
+    //当前请求页数
+    int _pageIndex = 1;
 
     @override
     void initState() {
@@ -160,23 +160,34 @@ class _RefreshListState extends State<RefreshList> {
                 _showEmptyWidget = false;
             });
         }
-        await widget.onRefresh(true);
+
+        //初始化请求页码
+        if(_pageIndex != 1){
+            _pageIndex = 1;
+        }
+        //发送请求
+        await widget.onRefresh(_pageIndex, (noMore){
+            _controller.resetLoadState();
+            _controller.finishRefresh();
+            _controller.finishLoad(noMore: noMore);
+        });
+        //请求成功页码加一
+        _pageIndex++;
+        
         //下拉刷新成功后如果数据为空显示空视图
         if(widget.data.length == 0 && !_showEmptyWidget){
             setState(() {
                 _showEmptyWidget = true;
             });
         }
-        if (!_enableControlFinish) {
-            _controller.resetLoadState();
-            _controller.finishRefresh();
-        }
     }
 
     Future _doLoad() async{
-        await widget.onLoad(false);
-        if (!_enableControlFinish) {
-            _controller.finishLoad(noMore: widget.data.length >= 8);
-        }
+        //发送请求
+        await widget.onLoad(_pageIndex, (noMore){
+            _controller.finishLoad(noMore: noMore);
+        });
+        //请求成功页码加一
+        _pageIndex++;
     }
 }

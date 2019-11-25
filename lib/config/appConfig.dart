@@ -18,6 +18,9 @@ class AppConfig{
     //请求超时时间
     static final int requestTimeout = 10000;
 
+    //接收数据的最长时限
+    static final int receiveTimeout = 5000;
+
     //每页请求数据条数
     static final int pageSize = 10;
 

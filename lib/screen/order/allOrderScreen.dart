@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:kjt_bsp/common/httpRequest.dart';
+import 'package:kjt_bsp/config/apiConfig.dart';
 import 'package:kjt_bsp/config/imgConfig.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/button/smallDealButtonWidget.dart';
@@ -25,47 +29,8 @@ class AllOrderScreen extends StatefulWidget {
 class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAliveClientMixin{
     @override
     bool get wantKeepAlive => true;
-    
-    List allOrderList = [];
 
-    List testList = [{
-        'orderNo': 201907071110000,
-        'status': 0,
-        'productList': [{
-            'productName': '澳大利亚CRO椰子洗护 宝宝椰子洗发沐浴二合一500ml/瓶(白色)',
-            'price': 80.00,
-            'nums': 1,
-            'productId': 'CEPUSHA10180092'
-        },{
-            'productName': '澳大利亚CRO椰子洗护 宝宝椰子洗发沐浴二合一500ml/瓶(白色)',
-            'price': 160.00,
-            'nums': 2,
-            'productId': 'CEPUSHA10180092'
-        }],
-    },{
-        'orderNo': 201907071110000,
-        'status': 1,
-        'productList': [{
-            'productName': '澳大利亚CRO椰子洗护 宝宝椰子洗发沐浴二合一500ml/瓶(白色)',
-            'price': 80.00,
-            'nums': 1,
-            'productId': 'CEPUSHA10180092'
-        }],
-    },{
-        'orderNo': 201907071110000,
-        'status': 2,
-        'productList': [{
-            'productName': '澳大利亚CRO椰子洗护 宝宝椰子洗发沐浴二合一500ml/瓶(白色)',
-            'price': 400.00,
-            'nums': 5,
-            'productId': 'CEPUSHA10180092'
-        },{
-            'productName': '澳大利亚CRO椰子洗护 宝宝椰子洗发沐浴二合一500ml/瓶(白色)',
-            'price': 160.00,
-            'nums': 2,
-            'productId': 'CEPUSHA10180092'
-        }],
-    }];
+    List allOrderList = [];
 
     /* 订单号 */
     Widget _orderNoWidget(index){
@@ -205,17 +170,19 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
         );
     }
 
-    Future _doReq(isRefresh) async{
-        await Future.delayed(Duration(seconds: 1));
-        if(widget.status != 0){
-            return;
-        }
-        setState(() {
-            if(isRefresh){
-                allOrderList = testList;
-            }else{
-                allOrderList += testList;
-            }
+    Future _doReq(pageIndex, noMoreCallback) async{
+        await HttpRequest.postWithoutToken(ApiConfig.orderList, {
+            'pageIndex': pageIndex
+        }, (result) {
+            setState(() {
+                if(pageIndex == 1){
+                    allOrderList = json.decode(json.encode(result['data']));
+                    noMoreCallback(json.decode(json.encode(result['noMore'])));
+                }else{
+                    allOrderList += json.decode(json.encode(result['data']));
+                    noMoreCallback(json.decode(json.encode(result['noMore'])));
+                }
+            });
         });
     }
 
