@@ -42,6 +42,8 @@ class _RefreshListState extends State<RefreshList> {
     Color _textColor = Color(0xff666666);
     //当前请求页数
     int _pageIndex = 1;
+    //是否还有更多数据
+    bool _noMore = true;
 
     @override
     void initState() {
@@ -167,9 +169,9 @@ class _RefreshListState extends State<RefreshList> {
         }
         //发送请求
         await widget.onRefresh(_pageIndex, (noMore){
+            _noMore = noMore;
             _controller.resetLoadState();
             _controller.finishRefresh();
-            _controller.finishLoad(noMore: noMore);
         });
         //请求成功页码加一
         _pageIndex++;
@@ -183,8 +185,15 @@ class _RefreshListState extends State<RefreshList> {
     }
 
     Future _doLoad() async{
+        //如果当前数据只有一页
+        if(_noMore){
+            _controller.finishLoad(noMore: _noMore);
+            return;
+        }
+
         //发送请求
         await widget.onLoad(_pageIndex, (noMore){
+            _noMore = noMore;
             _controller.finishLoad(noMore: noMore);
         });
         //请求成功页码加一

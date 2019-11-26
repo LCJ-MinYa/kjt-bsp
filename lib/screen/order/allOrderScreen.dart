@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:kjt_bsp/common/httpRequest.dart';
 import 'package:kjt_bsp/config/apiConfig.dart';
@@ -165,24 +164,23 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
         return RefreshList(
             data: allOrderList,
             child: _orderItemWidget,
-            onRefresh: _doReq,
-            onLoad: _doReq,
+            onRefresh: doReq,
+            onLoad: doReq,
         );
     }
 
-    Future _doReq(pageIndex, noMoreCallback) async{
+    Future doReq(pageIndex, noMoreCallback) async{
         await HttpRequest.postWithoutToken(ApiConfig.orderList, {
             'pageIndex': pageIndex
         }, (result) {
             setState(() {
                 if(pageIndex == 1){
                     allOrderList = json.decode(json.encode(result['data']));
-                    noMoreCallback(json.decode(json.encode(result['noMore'])));
                 }else{
                     allOrderList += json.decode(json.encode(result['data']));
-                    noMoreCallback(json.decode(json.encode(result['noMore'])));
                 }
             });
+            noMoreCallback(json.decode(json.encode(result['noMore'])));
         });
     }
 
