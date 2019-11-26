@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:kjt_bsp/config/imgConfig.dart';
+import 'package:kjt_bsp/widget/tap/platformTapWidget.dart';
 import '../../styles/uiSize.dart';
 
 class MainScreen extends StatefulWidget {
@@ -28,7 +29,8 @@ class MainScreenState extends State<MainScreen> with AutomaticKeepAliveClientMix
         'name': '最新通知'
     },{
         'url': ImgConfig.mainOrderEntry,
-        'name': '录入订单'
+        'name': '录入订单',
+        'screen': '/orderEntry'
     },{
         'url': ImgConfig.mainDataCenter,
         'name': '数据中心'
@@ -56,40 +58,47 @@ class MainScreenState extends State<MainScreen> with AutomaticKeepAliveClientMix
 
     /* MainModule 单个模块组件 */
     Widget _moduleItem(index){
-        return Container(
-            width: UISize.width(140),
-            height: double.infinity,
-            margin: EdgeInsets.only(left: UISize.width(32), right: index == _moduleList.length - 1 ? UISize.width(32) : 0),
-            alignment: Alignment(0, 0),
-            decoration: new BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(UISize.width(8)))
-            ),
-            child: Column(
-                children: <Widget>[
-                    Container(
-                        width: UISize.width(80),
-                        height: UISize.height(80),
-                        alignment: Alignment(0, 0),
-                        margin: EdgeInsets.only(
-                            left: UISize.width(30),
-                            right: UISize.width(30),
-                            top: UISize.height(16),
-                            bottom: UISize.height(8) 
+        return PlatformTapWidget(
+            onTap: (){
+                if(_moduleList[index]['screen'] != null){
+                    Navigator.pushNamed(context, _moduleList[index]['screen']);
+                }
+            },
+            child: Container(
+                width: UISize.width(140),
+                height: double.infinity,
+                margin: EdgeInsets.only(left: UISize.width(32), right: index == _moduleList.length - 1 ? UISize.width(32) : 0),
+                alignment: Alignment(0, 0),
+                decoration: new BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(UISize.width(8)))
+                ),
+                child: Column(
+                    children: <Widget>[
+                        Container(
+                            width: UISize.width(80),
+                            height: UISize.height(80),
+                            alignment: Alignment(0, 0),
+                            margin: EdgeInsets.only(
+                                left: UISize.width(30),
+                                right: UISize.width(30),
+                                top: UISize.height(16),
+                                bottom: UISize.height(8) 
+                            ),
+                            child: Image.asset(
+                                _moduleList[index]['url'],
+                                fit: BoxFit.cover,
+                            ),
                         ),
-                        child: Image.asset(
-                            _moduleList[index]['url'],
-                            fit: BoxFit.cover,
-                        ),
-                    ),
-                    Text(
-                        _moduleList[index]['name'],
-                        style: TextStyle(
-                            fontSize: UISize.size(24),
-                            color: Color(0xff666666)
-                        ),
-                    )
-                ],
+                        Text(
+                            _moduleList[index]['name'],
+                            style: TextStyle(
+                                fontSize: UISize.size(24),
+                                color: Color(0xff666666)
+                            ),
+                        )
+                    ],
+                ),
             ),
         );
     }
@@ -107,7 +116,32 @@ class MainScreenState extends State<MainScreen> with AutomaticKeepAliveClientMix
             height: UISize.height(200),
             padding: EdgeInsets.only(top: UISize.height(32)),
         );
-    }    
+    }
+
+    /* placeholder组件 */
+    Widget _placeholderWidget(){
+        return Expanded(
+            child: Padding(
+                padding: EdgeInsets.all(UISize.width(32)),
+                child: Container(
+                    alignment: Alignment.center,
+                    width: double.infinity,
+                    height: double.infinity,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(8))
+                    ),
+                    child: Text(
+                        '数据展示',
+                        style: TextStyle(
+                            fontSize: UISize.size(24),
+                            color: Color(0xff666666)
+                        ),
+                    ),
+                ),
+            ) 
+        );
+    }
 
     @override
     Widget build(BuildContext context) {
@@ -120,6 +154,7 @@ class MainScreenState extends State<MainScreen> with AutomaticKeepAliveClientMix
                     children: <Widget>[
                         _banner(),
                         _module(),
+                        _placeholderWidget(),
                     ],
                 ),
             ),

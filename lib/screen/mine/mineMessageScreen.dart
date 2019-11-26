@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/text/appBarTextWidget.dart';
+import 'package:kjt_bsp/widget/text/titleWithNameWidget.dart';
 import '../../widget/cell/nameCellWidget.dart';
 
 class MineMessageScreen extends StatefulWidget {
@@ -9,22 +9,6 @@ class MineMessageScreen extends StatefulWidget {
 }
 
 class _MineMessageScreenState extends State<MineMessageScreen> {
-    Widget _titleWithNameWidget(name){
-        return Container(
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.only(left: UISize.width(32)),
-            width: double.infinity,
-            height: UISize.height(96),
-            child: Text(
-                name,
-                style: TextStyle(
-                    fontSize: UISize.size(26),
-                    color: Color(0xff333333)
-                ),
-            ),
-        );
-    }
-
     @override
     Widget build(BuildContext context) {
         return Scaffold(
@@ -33,7 +17,7 @@ class _MineMessageScreenState extends State<MineMessageScreen> {
             ),
             body: ListView(
                 children: <Widget>[
-                    _titleWithNameWidget('基本信息'),
+                    TitleWithNameWidget(title: '基本信息'),
                     NameCellWidget(
                         title: '姓名',
                         value: '路飞',
@@ -50,7 +34,7 @@ class _MineMessageScreenState extends State<MineMessageScreen> {
                         title: '证件号码',
                         value: '510902****2222',
                     ),
-                    _titleWithNameWidget('公司信息'),
+                    TitleWithNameWidget(title: '公司信息'),
                     NameCellWidget(
                         title: '转运公司',
                         value: '驿友',
