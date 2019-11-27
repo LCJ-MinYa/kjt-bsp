@@ -7,14 +7,12 @@ import 'package:kjt_bsp/widget/layout/autoAdaptiveCenterWidget.dart';
 
 class RefreshList extends StatefulWidget {
     final Function child;               //列表item
-    final List data;                    //列表数据
     final Function onRefresh;           //下拉刷新
     final Function onLoad;              //上拉加载
 
     RefreshList({
         Key key,
         @required this.child,
-        @required this.data,
         this.onRefresh,
         this.onLoad
     }) : super(key: key);
@@ -24,9 +22,6 @@ class RefreshList extends StatefulWidget {
 }
 
 class _RefreshListState extends State<RefreshList> {
-    String title;
-    Widget child;
-
     EasyRefreshController _controller;
     ScrollController _scrollController;
 
@@ -44,6 +39,8 @@ class _RefreshListState extends State<RefreshList> {
     int _pageIndex = 1;
     //是否还有更多数据
     bool _noMore = true;
+    //当前页面数据来源
+    List _data = [];
 
     @override
     void initState() {
@@ -118,12 +115,12 @@ class _RefreshListState extends State<RefreshList> {
             topBouncing: _topBouncing,
             bottomBouncing: _bottomBouncing,
             onRefresh: widget.onRefresh != null ? _doRefresh : null,
-            onLoad: widget.onLoad != null && widget.data.length != 0 ? _doLoad: null,
+            onLoad: widget.onLoad != null && _data.length != 0 ? _doLoad: null,
             slivers: <Widget>[
                 SliverList(
                     delegate: SliverChildBuilderDelegate((context, index){
-                        return widget.child(index);
-                    },childCount: widget.data.length),
+                        return widget.child(_data[index], index);
+                    },childCount: _data.length),
                 )
             ],
             header: ClassicalHeader(
@@ -151,7 +148,7 @@ class _RefreshListState extends State<RefreshList> {
             ),
             firstRefresh: true,
             firstRefreshWidget: _loadingWidget(),
-            emptyWidget: widget.data.length == 0 ? _onMordeDataWidget() : null,
+            emptyWidget: _data.length == 0 ? _onMordeDataWidget() : null,
         );
     }
 
@@ -168,8 +165,11 @@ class _RefreshListState extends State<RefreshList> {
             _pageIndex = 1;
         }
         //发送请求
-        await widget.onRefresh(_pageIndex, (noMore){
-            _noMore = noMore;
+        await widget.onRefresh(_pageIndex, (data, noMore){
+            setState(() {
+                _data = data;
+                _noMore = noMore;
+            });
             _controller.resetLoadState();
             _controller.finishRefresh();
         });
@@ -177,7 +177,7 @@ class _RefreshListState extends State<RefreshList> {
         _pageIndex++;
         
         //下拉刷新成功后如果数据为空显示空视图
-        if(widget.data.length == 0 && !_showEmptyWidget){
+        if(_data.length == 0 && !_showEmptyWidget){
             setState(() {
                 _showEmptyWidget = true;
             });
@@ -192,8 +192,11 @@ class _RefreshListState extends State<RefreshList> {
         }
 
         //发送请求
-        await widget.onLoad(_pageIndex, (noMore){
-            _noMore = noMore;
+        await widget.onLoad(_pageIndex, (data, noMore){
+            setState(() {
+                _noMore = noMore;
+                _data += data;
+            });
             _controller.finishLoad(noMore: noMore);
         });
         //请求成功页码加一

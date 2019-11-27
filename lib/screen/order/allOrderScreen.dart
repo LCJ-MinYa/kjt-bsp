@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:kjt_bsp/common/httpRequest.dart';
-import 'package:kjt_bsp/config/apiConfig.dart';
 import 'package:kjt_bsp/config/imgConfig.dart';
+import 'package:kjt_bsp/controller/order.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/button/smallDealButtonWidget.dart';
 import 'package:kjt_bsp/widget/list/refreshScreen.dart';
@@ -29,10 +27,8 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
     @override
     bool get wantKeepAlive => true;
 
-    List allOrderList = [];
-
     /* 订单号 */
-    Widget _orderNoWidget(index){
+    Widget _orderNoWidget(item, index){
         return Row(
             children: <Widget>[
                 Image.asset(
@@ -43,7 +39,7 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
                 Padding(
                     padding: EdgeInsets.only(left: UISize.width(16)),
                     child: Text(
-                        '订单号: ${allOrderList[index]['orderNo']}',
+                        '订单号: ${item['orderNo']}',
                         style: TextStyle(
                             fontSize: UISize.size(24),
                             color: Color(0xff333333),
@@ -55,16 +51,16 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
     }
 
     /* 作废修改支付订单占位widget */
-    Widget _dealOrderPlaceholderWidget(index){
+    Widget _dealOrderPlaceholderWidget(item, index){
         return Offstage(
-            offstage: allOrderList[index]['status'] != 0,
+            offstage: item['status'] != 0,
             child: Container(width: double.infinity, height: UISize.width(60),),
         );
     }
 
     /* 作废修改支付订单 */
-    Widget _dealOrderWidget(index){
-        if(allOrderList[index]['status'] == 0){
+    Widget _dealOrderWidget(item, index){
+        if(item['status'] == 0){
             return Positioned(
                 bottom: UISize.height(32),
                 right: UISize.width(24), 
@@ -100,9 +96,9 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
     }
 
     /* 订单列表item */
-    Widget _orderItemWidget(index){
+    Widget _orderItemWidget(item, index){
         String imgUrl;
-        switch(allOrderList[index]['status']){
+        switch(item['status']){
             case 0:
                 imgUrl = ImgConfig.orderPay;
                 break;
@@ -119,7 +115,7 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
                 children: <Widget>[
                     PlatformTapWidget(
                         onTap: (){
-                            _goOrderDetailScreen(allOrderList[index]['orderNo']);
+                            _goOrderDetailScreen(item['orderNo']);
                         },
                         child: Container(
                             padding: EdgeInsets.only(
@@ -134,15 +130,15 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
                             ),
                             child: Column(
                                 children: <Widget>[
-                                    _orderNoWidget(index),
-                                    OrderProductListWidget(orderMessage: allOrderList[index]),
-                                    OrderPriceWidget(orderMessage: allOrderList[index]),
-                                    _dealOrderPlaceholderWidget(index),
+                                    _orderNoWidget(item, index),
+                                    OrderProductListWidget(orderMessage: item),
+                                    OrderPriceWidget(orderMessage: item),
+                                    _dealOrderPlaceholderWidget(item, index),
                                 ],
                             ),
                         ),
                     ),
-                    _dealOrderWidget(index),
+                    _dealOrderWidget(item, index),
                     Positioned(
                         top: UISize.width(-5),
                         right: UISize.width(24),
@@ -162,26 +158,10 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
         super.build(context);
 
         return RefreshList(
-            data: allOrderList,
             child: _orderItemWidget,
-            onRefresh: doReq,
-            onLoad: doReq,
+            onRefresh: getOrderList,
+            onLoad: getOrderList,
         );
-    }
-
-    Future doReq(pageIndex, noMoreCallback) async{
-        await HttpRequest.postWithoutToken(ApiConfig.orderList, {
-            'pageIndex': pageIndex
-        }, (result) {
-            setState(() {
-                if(pageIndex == 1){
-                    allOrderList = json.decode(json.encode(result['data']));
-                }else{
-                    allOrderList += json.decode(json.encode(result['data']));
-                }
-            });
-            noMoreCallback(json.decode(json.encode(result['noMore'])));
-        });
     }
 
     _goOrderDetailScreen(orderNo){

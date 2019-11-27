@@ -20,7 +20,7 @@ class _OrderEntryScreenState extends State<OrderEntryScreen> {
                 actions: <Widget>[
                     PlatformTapWidget(
                         onTap: (){
-
+                            
                         },
                         child: Text(
                             '提交',
@@ -32,6 +32,7 @@ class _OrderEntryScreenState extends State<OrderEntryScreen> {
                 ],
             ),
             body: ListView(
+                padding: EdgeInsets.only(bottom: UISize.width(96)),
                 children: <Widget>[
                     TitleWithNameWidget(title: '代购信息'),
                     TextFieldCellWidget(
