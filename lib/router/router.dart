@@ -16,7 +16,8 @@ import '../screen/login/loginScreen.dart';
 import '../screen/login/forgetPwdScreen.dart';
 
 import '../screen/order/orderDetailScreen.dart';
-import '../screen/order/orderEntryScreen.dart';
+import '../screen/orderEntry/orderEntryScreen.dart';
+import '../screen/orderEntry/addProductScreen.dart';
 
 class RouteConfig{
     static final initRouteName = '/';
@@ -33,6 +34,7 @@ class RouteConfig{
         '/modifyPwd': (BuildContext context) => ModifyPwdScreen(),
         '/orderDetail': (BuildContext context, {arguments}) => OrderDetailScreen(arguments: arguments),
         '/orderEntry': (BuildContext context) => OrderEntryScreen(),
+        '/addProduct': (BuildContext context) => AddProductScreen(),
     };
 
     static Route<dynamic> onGenerateRoute(RouteSettings settings){

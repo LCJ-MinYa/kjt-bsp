@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
+import 'package:kjt_bsp/widget/button/navigatorRightButtonWidget.dart';
 import 'package:kjt_bsp/widget/cell/containerCellWidget.dart';
 import 'package:kjt_bsp/widget/cell/nameCellWidget.dart';
 import 'package:kjt_bsp/widget/cell/textFieldCellWidget.dart';
@@ -16,7 +17,9 @@ class _OrderEntryScreenState extends State<OrderEntryScreen> {
     /* 添加商品按钮 */
     Widget _addProductActionWidget(){
         return PlatformTapWidget(
-            onTap: (){},
+            onTap: (){
+                Navigator.pushNamed(context, '/addProduct');
+            },
             child: ContainerCellWidget(
                 child: Row(
                     children: <Widget>[
@@ -43,16 +46,9 @@ class _OrderEntryScreenState extends State<OrderEntryScreen> {
             appBar: AppBar(
                 title: AppBarTextWidget(title: '订单录入'),
                 actions: <Widget>[
-                    PlatformTapWidget(
-                        onTap: (){
-                            
-                        },
-                        child: Text(
-                            '提交',
-                            style: TextStyle(
-                                fontSize: UISize.size(30)
-                            ),
-                        ),
+                    NavigatorRightButtonWidget(
+                        text: '提交',
+                        onTap: (){},
                     )
                 ],
             ),
