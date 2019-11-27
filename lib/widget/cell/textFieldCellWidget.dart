@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
+import 'package:kjt_bsp/widget/cell/containerCellWidget.dart';
 import 'package:kjt_bsp/widget/input/textFieldWidget.dart';
 import 'package:kjt_bsp/widget/tap/platformTapWidget.dart';
 
@@ -38,15 +39,10 @@ class TextFieldCellWidget extends StatelessWidget {
     });
 
     Widget _textFieldCellWidget(){
-        return Container(
-            padding: EdgeInsets.only(left: UISize.width(32)),
-            width: double.infinity,
-            height: UISize.height(height),
-            alignment: Alignment(0, 0),
-            decoration: BoxDecoration(
-                color: bgColor,
-                borderRadius: BorderRadius.all(Radius.circular(UISize.width(borderRadius))),
-            ),
+        return ContainerCellWidget(
+            height: height,
+            bgColor: bgColor,
+            borderRadius: borderRadius,
             child: Container(
                 decoration: BoxDecoration(
                     border: Border(

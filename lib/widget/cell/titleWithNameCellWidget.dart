@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
+import 'package:kjt_bsp/widget/cell/containerCellWidget.dart';
 
-class TitleWithNameWidget extends StatelessWidget {
+class TitleWithNameCellWidget extends StatelessWidget {
     final String title;
 
-    TitleWithNameWidget({
+    TitleWithNameCellWidget({
         @required this.title,
     });
 
     @override
     Widget build(BuildContext context) {
-        return Container(
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.only(left: UISize.width(32)),
-            width: double.infinity,
-            height: UISize.height(96),
+        return ContainerCellWidget(
+            bgColor: Color(0x00ffffff),
+            align: Alignment.centerLeft,
             child: Text(
                 title,
                 style: TextStyle(

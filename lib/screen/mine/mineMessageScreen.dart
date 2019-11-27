@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kjt_bsp/widget/cell/titleWithNameCellWidget.dart';
 import 'package:kjt_bsp/widget/text/appBarTextWidget.dart';
-import 'package:kjt_bsp/widget/text/titleWithNameWidget.dart';
 import '../../widget/cell/nameCellWidget.dart';
 
 class MineMessageScreen extends StatefulWidget {
@@ -17,7 +17,7 @@ class _MineMessageScreenState extends State<MineMessageScreen> {
             ),
             body: ListView(
                 children: <Widget>[
-                    TitleWithNameWidget(title: '基本信息'),
+                    TitleWithNameCellWidget(title: '基本信息'),
                     NameCellWidget(
                         title: '姓名',
                         value: '路飞',
@@ -34,7 +34,7 @@ class _MineMessageScreenState extends State<MineMessageScreen> {
                         title: '证件号码',
                         value: '510902****2222',
                     ),
-                    TitleWithNameWidget(title: '公司信息'),
+                    TitleWithNameCellWidget(title: '公司信息'),
                     NameCellWidget(
                         title: '转运公司',
                         value: '驿友',
