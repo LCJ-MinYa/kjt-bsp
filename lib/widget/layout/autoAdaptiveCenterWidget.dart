@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+/*
+ * 带有动画自适应剧中组件
+ */
 class AutoAdaptiveCenterWidget extends StatelessWidget {
     final List<Widget> children;
 

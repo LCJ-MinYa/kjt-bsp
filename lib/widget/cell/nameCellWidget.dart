@@ -3,7 +3,6 @@ import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/cell/containerCellWidget.dart';
 import '../tap/platformTapWidget.dart';
 
-/* listTitle封装 */
 class NameCellWidget extends StatelessWidget {
     final Function onTap;           //是否能点击，点击事件
     final String title;             //标题

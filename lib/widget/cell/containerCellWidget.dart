@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 
+/*
+ * 容器cell组件
+ */
 class ContainerCellWidget extends StatelessWidget {
     final Widget child;             //子组件，必须传递
     final double height;            //自定义高度 => 默认48dp

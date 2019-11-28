@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 
+/*
+ * 确认弹框组件
+ */
 showAlertDialog(BuildContext context, String title, String content, Function confirmAction) {
     showDialog(
         context: context,

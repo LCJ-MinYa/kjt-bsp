@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/tap/platformTapWidget.dart';
 
+/*
+ * 通用输入框组件
+ */
 class TextFieldWidget extends StatefulWidget {
     final String hintText;                  //提示文本
     final bool isPwd;                       //是否密码 => 默认不是

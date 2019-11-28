@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/cell/containerCellWidget.dart';
 
+/*
+ * 标题cell组件
+ */
 class TitleWithNameCellWidget extends StatelessWidget {
     final String title;
 

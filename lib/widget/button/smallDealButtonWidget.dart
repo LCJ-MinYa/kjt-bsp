@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/tap/platformTapWidget.dart';
 
+/*
+ * 订单列表小型处理按钮组件
+ */
 class SmallDealButtonWidget extends StatelessWidget {
     final String text;                          //按钮文本 => 必传
     final Color borderColor;                    //边框颜色 => 默认主题色

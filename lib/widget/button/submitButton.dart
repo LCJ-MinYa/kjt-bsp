@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import '../tap/platformTapWidget.dart';
 
+/*
+ * 提交确认通用按钮组件
+ */
 class SubmitButton extends StatelessWidget {
     final bool disable;             //是否能点击 => 默认可以点击
     final Function onTap;           //点击事件

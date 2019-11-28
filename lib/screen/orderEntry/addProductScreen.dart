@@ -3,7 +3,6 @@ import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/button/navigatorRightButtonWidget.dart';
 import 'package:kjt_bsp/widget/cell/containerCellWidget.dart';
 import 'package:kjt_bsp/widget/input/textFieldWidget.dart';
-import 'package:kjt_bsp/widget/layout/autoAdaptiveCenterWithAnimatedWidget.dart';
 import 'package:kjt_bsp/widget/text/appBarTextWidget.dart';
 
 class AddProductScreen extends StatefulWidget {

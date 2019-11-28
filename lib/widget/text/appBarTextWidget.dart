@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 
+/*
+ * 适配文字大小的导航标题组件
+ */
 class AppBarTextWidget extends StatelessWidget {
     final String title;
 

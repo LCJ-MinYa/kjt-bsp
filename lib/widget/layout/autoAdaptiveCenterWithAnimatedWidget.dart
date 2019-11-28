@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'autoAdaptiveCenterWidget.dart';
 
+/*
+ * 自适应剧中组件
+ */
 class AutoAdaptiveCenterWithAnimatedWidget extends StatelessWidget {
     final bool isShow;                  //是否显示
     final List<Widget> children;        //组件列表

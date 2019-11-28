@@ -6,6 +6,9 @@ import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/layout/autoAdaptiveCenterWidget.dart';
 import 'package:kjt_bsp/widget/layout/autoAdaptiveCenterWithAnimatedWidget.dart';
 
+/*
+ * 上拉加载下拉刷新组件
+ */
 class RefreshList extends StatefulWidget {
     final Function child;               //列表item
     final Function onRefresh;           //下拉刷新

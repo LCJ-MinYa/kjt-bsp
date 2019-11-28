@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/tap/platformTapWidget.dart';
 
+/*
+ * 导航条右侧文本按钮组件
+ */
 class NavigatorRightButtonWidget extends StatelessWidget {
     final Function onTap;           //点击方法
     final String text;              //按钮文本

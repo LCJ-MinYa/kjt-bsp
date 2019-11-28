@@ -4,6 +4,9 @@ import 'package:kjt_bsp/widget/cell/containerCellWidget.dart';
 import 'package:kjt_bsp/widget/input/textFieldWidget.dart';
 import 'package:kjt_bsp/widget/tap/platformTapWidget.dart';
 
+/*
+ * 带输入框cell组件
+ */
 class TextFieldCellWidget extends StatelessWidget {
     final Function onTap;           //是否能点击，点击事件
     final String title;             //标题

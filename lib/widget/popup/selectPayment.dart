@@ -3,6 +3,9 @@ import 'package:kjt_bsp/config/imgConfig.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/tap/platformTapWidget.dart';
 
+/*
+ * 选择支付方式组件
+ */
 showSelectPayment(BuildContext context){
     return showModalBottomSheet(
         context: context,
