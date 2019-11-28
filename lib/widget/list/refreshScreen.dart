@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:kjt_bsp/config/imgConfig.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/layout/autoAdaptiveCenterWidget.dart';
+import 'package:kjt_bsp/widget/layout/autoAdaptiveCenterWithAnimatedWidget.dart';
 
 class RefreshList extends StatefulWidget {
     final Function child;               //列表item
@@ -77,33 +78,30 @@ class _RefreshListState extends State<RefreshList> {
 
     /* 空数据组件 */
     Widget _onMordeDataWidget(){
-        return AnimatedOpacity(
-            opacity: _showEmptyWidget ? 1 : 0,
-            duration: Duration(milliseconds: 300),
-            child: AutoAdaptiveCenterWidget(
-                children: <Widget>[
-                    Container(
-                        width: UISize.width(150),
-                        height: UISize.width(150),
-                        child: Image.asset(
-                            ImgConfig.emptyData,
-                            width: UISize.width(100),
-                            height: UISize.width(100),
-                            fit: BoxFit.cover,
+        return AutoAdaptiveCenterWithAnimatedWidget(
+            isShow: _showEmptyWidget,
+            children: <Widget>[
+                Container(
+                    width: UISize.width(150),
+                    height: UISize.width(150),
+                    child: Image.asset(
+                        ImgConfig.emptyData,
+                        width: UISize.width(100),
+                        height: UISize.width(100),
+                        fit: BoxFit.cover,
+                    ),
+                ),
+                SizedBox(height: UISize.width(20)),
+                Container(
+                    child: Text(
+                        '没有更多数据...',
+                        style: TextStyle(
+                            color: _textColor,
+                            fontSize: UISize.size(28)
                         ),
-                    ),
-                    SizedBox(height: UISize.width(20)),
-                    Container(
-                        child: Text(
-                            '没有更多数据...',
-                            style: TextStyle(
-                                color: _textColor,
-                                fontSize: UISize.size(28)
-                            ),
-                        )
-                    ),
-                ],
-            ),
+                    )
+                ),
+            ]
         );
     }
 

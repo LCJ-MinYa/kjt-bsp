@@ -65,6 +65,7 @@ class NameCellWidget extends StatelessWidget {
             height: height,
             bgColor: bgColor,
             borderRadius: borderRadius,
+            needRightPadding: false,
             child: Container(
                 decoration: BoxDecoration(
                     border: Border(

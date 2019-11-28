@@ -7,6 +7,7 @@ class ContainerCellWidget extends StatelessWidget {
     final double borderRadius;      //是否有圆角 => 默认无圆角
     final Color bgColor;            //背景颜色 =>默认白色
     final Alignment align;          //对其方式 =>默认居中
+    final bool needRightPadding;    //右边距是否需要 => 默认需要
 
     ContainerCellWidget({
         @required this.child,
@@ -14,12 +15,16 @@ class ContainerCellWidget extends StatelessWidget {
         this.bgColor = Colors.white,
         this.borderRadius = 0,
         this.align = Alignment.center,
+        this.needRightPadding = true,
     });
 
     @override
     Widget build(BuildContext context) {
         return Container(
-            padding: EdgeInsets.only(left: UISize.width(32)),
+            padding: EdgeInsets.only(
+                left: UISize.width(32),
+                right: UISize.width(needRightPadding ? 32 : 0),
+            ),
             width: double.infinity,
             height: UISize.height(height),
             alignment: align,
