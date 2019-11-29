@@ -161,6 +161,7 @@ class _AllOrderScreenState extends State<AllOrderScreen> with AutomaticKeepAlive
             child: _orderItemWidget,
             onRefresh: getOrderList,
             onLoad: getOrderList,
+            params: {},
         );
     }
 

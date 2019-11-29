@@ -14,6 +14,7 @@ class AddProductScreen extends StatefulWidget {
 
 class _AddProductScreenState extends State<AddProductScreen> {
     bool _searchState = false;
+    String _searchValue = '';
     List _searchList = [
         '口红',
         '狗粮',
@@ -63,6 +64,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                 hintText: '搜索商品名称',
                                 fontSize: 24,
                                 onSubmitted: _submitSearchVaule,
+                                onChanged: _changeSearchVaule,
                             )
                         ],
                     ),
@@ -151,7 +153,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
     /* 搜索结果item */
     Widget _productItemWidget(item, index){
-        return Text(item['productName']);
+        return ContainerCellWidget(
+            child: Text(item['productName']),
+        );
     }
 
     /* 搜索结果 */
@@ -159,7 +163,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
         return RefreshList(
             child: _productItemWidget,
             onRefresh: searchProduct,
-            onLoad: searchProduct,
+            params: {
+                "searchValue": _searchValue
+            },
         );
     }
 
@@ -200,6 +206,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 ],
             ),
         );
+    }
+
+    //实时更新输入值
+    _changeSearchVaule(val){
+        setState(() {
+            _searchValue = val;
+        });
     }
 
     //提交搜索

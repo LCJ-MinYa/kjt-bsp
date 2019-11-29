@@ -10,12 +10,14 @@ class RefreshList extends StatefulWidget {
     final Function child;               //列表item
     final Function onRefresh;           //下拉刷新
     final Function onLoad;              //上拉加载
+    final Map params;                   //请求参数
 
     RefreshList({
         Key key,
         @required this.child,
         this.onRefresh,
-        this.onLoad
+        this.onLoad,
+        @required this.params,
     }) : super(key: key);
     
     @override
@@ -105,8 +107,10 @@ class _RefreshListState extends State<RefreshList> {
         if(_pageIndex != 1){
             _pageIndex = 1;
         }
+
         //发送请求
-        await widget.onRefresh(_pageIndex, (data, noMore){
+        widget.params['pageIndex'] = _pageIndex;
+        await widget.onRefresh(widget.params, (data, noMore){
             setState(() {
                 _data = data;
                 _noMore = noMore;
@@ -133,7 +137,8 @@ class _RefreshListState extends State<RefreshList> {
         }
 
         //发送请求
-        await widget.onLoad(_pageIndex, (data, noMore){
+        widget.params['pageIndex'] = _pageIndex;
+        await widget.onLoad(widget.params, (data, noMore){
             setState(() {
                 _noMore = noMore;
                 _data += data;
