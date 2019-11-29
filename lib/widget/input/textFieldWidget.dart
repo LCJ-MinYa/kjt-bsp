@@ -12,6 +12,7 @@ class TextFieldWidget extends StatefulWidget {
     final int maxLength;                    //最长输入字符 => 默认20
     final TextInputType keyboardType;       //键盘类型 => 默认text
     final Function onChanged;               //输入改变事件
+    final Function onSubmitted;             //提交回调
     final double rightIconMargin;           //右侧icon距离右边距离 => 默认15dp
     final double fontSize;                  //字体大小 => 默认15dp
 
@@ -23,6 +24,7 @@ class TextFieldWidget extends StatefulWidget {
         this.maxLength = 20,
         this.keyboardType = TextInputType.text,
         this.onChanged,
+        this.onSubmitted,
         this.rightIconMargin = 30,
         this.fontSize = 30
     }) : super(key: key);
@@ -74,6 +76,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                                 obscureText: _isPwd,
                                 keyboardType: widget.keyboardType,
                                 onChanged: widget.onChanged,
+                                onSubmitted: widget.onSubmitted,
                             ),
                         ),
                     ),

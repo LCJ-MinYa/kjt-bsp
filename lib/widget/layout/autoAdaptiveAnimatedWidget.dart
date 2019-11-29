@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
-import 'autoAdaptiveCenterWidget.dart';
+import 'package:kjt_bsp/widget/layout/autoAdaptiveWidget.dart';
 
 /*
- * 自适应剧中组件
+ * 带有动画自适应组件
  */
-class AutoAdaptiveCenterWithAnimatedWidget extends StatelessWidget {
+class AutoAdaptiveAnimatedWidget extends StatelessWidget {
     final bool isShow;                  //是否显示
     final List<Widget> children;        //组件列表
+        final bool shouldCenter;
 
-    AutoAdaptiveCenterWithAnimatedWidget({
+    AutoAdaptiveAnimatedWidget({
         @required this.isShow,
-        @required this.children
+        @required this.children,
+        this.shouldCenter = true,
     });
 
     @override
@@ -18,7 +20,8 @@ class AutoAdaptiveCenterWithAnimatedWidget extends StatelessWidget {
         return AnimatedOpacity(
             opacity: isShow ? 1 : 0,
             duration: Duration(milliseconds: 300),
-            child: AutoAdaptiveCenterWidget(
+            child: AutoAdaptiveWidget(
+                shouldCenter: shouldCenter,
                 children: children,
             ),
         );

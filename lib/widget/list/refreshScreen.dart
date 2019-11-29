@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:kjt_bsp/config/imgConfig.dart';
-import 'package:kjt_bsp/styles/uiSize.dart';
-import 'package:kjt_bsp/widget/layout/autoAdaptiveCenterWidget.dart';
-import 'package:kjt_bsp/widget/layout/autoAdaptiveCenterWithAnimatedWidget.dart';
+import 'package:kjt_bsp/widget/layout/emptyWidget.dart';
+import 'package:kjt_bsp/widget/layout/firstLoadingWidget.dart';
 
 /*
  * 上拉加载下拉刷新组件
@@ -37,8 +34,6 @@ class _RefreshListState extends State<RefreshList> {
     bool _bottomBouncing = true;
     //空视图显示状态
     bool _showEmptyWidget = false;
-    //文本颜色
-    Color _textColor = Color(0xff666666);
     //当前请求页数
     int _pageIndex = 1;
     //是否还有更多数据
@@ -51,61 +46,6 @@ class _RefreshListState extends State<RefreshList> {
         super.initState();
         _controller = EasyRefreshController();
         _scrollController = ScrollController();
-    }
-
-    /* 首次加载动画组件 */
-    Widget _loadingWidget(){
-        return AutoAdaptiveCenterWidget(
-            children: <Widget>[
-                Container(
-                    width: UISize.width(100),
-                    height: UISize.width(100),
-                    child: SpinKitPouringHourglass(
-                        color: Color(0xff757575),
-                        size: UISize.size(70),
-                        
-                    ),
-                ),
-                Container(
-                    child: Text(
-                        '加载中...',
-                        style: TextStyle(
-                            color: _textColor,
-                            fontSize: UISize.size(28)
-                        ),
-                    )
-                ),
-            ],
-        );
-    }
-
-    /* 空数据组件 */
-    Widget _onMordeDataWidget(){
-        return AutoAdaptiveCenterWithAnimatedWidget(
-            isShow: _showEmptyWidget,
-            children: <Widget>[
-                Container(
-                    width: UISize.width(150),
-                    height: UISize.width(150),
-                    child: Image.asset(
-                        ImgConfig.emptyData,
-                        width: UISize.width(100),
-                        height: UISize.width(100),
-                        fit: BoxFit.cover,
-                    ),
-                ),
-                SizedBox(height: UISize.width(20)),
-                Container(
-                    child: Text(
-                        '没有更多数据...',
-                        style: TextStyle(
-                            color: _textColor,
-                            fontSize: UISize.size(28)
-                        ),
-                    )
-                ),
-            ]
-        );
     }
 
     @override
@@ -133,7 +73,7 @@ class _RefreshListState extends State<RefreshList> {
                 refreshFailedText: '刷新失败',
                 noMoreText: '没有更多数据...',
                 infoText: '更新于 %T',
-                infoColor: _textColor,
+                infoColor: Color(0xff666666),
                 enableHapticFeedback: _vibration,
             ),
             footer: ClassicalFooter(
@@ -148,8 +88,8 @@ class _RefreshListState extends State<RefreshList> {
                 enableHapticFeedback: _vibration,
             ),
             firstRefresh: true,
-            firstRefreshWidget: _loadingWidget(),
-            emptyWidget: _data.length == 0 ? _onMordeDataWidget() : null,
+            firstRefreshWidget: FirstLoadingWidget(),
+            emptyWidget: _data.length == 0 ? EmptyWidget(isShow: _showEmptyWidget) : null,
         );
     }
 

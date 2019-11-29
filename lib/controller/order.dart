@@ -10,3 +10,11 @@ Future getOrderList(pageIndex, callback) async{
         callback(json.decode(json.encode(result['data'])), json.decode(json.encode(result['noMore'])));
     });
 }
+
+Future searchProduct(pageIndex, callback) async{
+    await HttpRequest.postWithoutToken(ApiConfig.productSearch, {
+        'pageIndex': pageIndex
+    }, (result) {
+        callback(json.decode(json.encode(result['data'])), json.decode(json.encode(result['noMore'])));
+    });
+}

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kjt_bsp/controller/order.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
-import 'package:kjt_bsp/widget/button/navigatorRightButtonWidget.dart';
+import 'package:kjt_bsp/widget/animation/slideAnimationWidget.dart';
 import 'package:kjt_bsp/widget/cell/containerCellWidget.dart';
 import 'package:kjt_bsp/widget/input/textFieldWidget.dart';
+import 'package:kjt_bsp/widget/list/refreshScreen.dart';
 import 'package:kjt_bsp/widget/text/appBarTextWidget.dart';
 
 class AddProductScreen extends StatefulWidget {
@@ -12,7 +14,6 @@ class AddProductScreen extends StatefulWidget {
 
 class _AddProductScreenState extends State<AddProductScreen> {
     bool _searchState = false;
-    String _searchValue = '';
     List _searchList = [
         '口红',
         '狗粮',
@@ -61,7 +62,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                             TextFieldWidget(
                                 hintText: '搜索商品名称',
                                 fontSize: 24,
-                                onChanged: _changeSearchVaule,
+                                onSubmitted: _submitSearchVaule,
                             )
                         ],
                     ),
@@ -109,7 +110,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     Widget _historySearchWidget(){
         return Container(
             width: double.infinity,
-            color: Colors.white,
+            height: double.infinity,
             child: Column(
                 children: <Widget>[
                     ContainerCellWidget(
@@ -133,6 +134,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     ),
                     Container(
                         width: double.infinity,
+                        color: Colors.white,
                         padding: EdgeInsets.only(
                             left: UISize.width(32),
                             right: UISize.width(32),
@@ -147,13 +149,40 @@ class _AddProductScreenState extends State<AddProductScreen> {
         );
     }
 
+    /* 搜索结果item */
+    Widget _productItemWidget(item, index){
+        return Text(item['productName']);
+    }
+
+    /* 搜索结果 */
+    Widget _searchResultWidget(){
+        return RefreshList(
+            child: _productItemWidget,
+            onRefresh: searchProduct,
+            onLoad: searchProduct,
+        );
+    }
+
     /* 搜索内容 */
     Widget _searchContentWidget(){
-        if(_searchState){
-            return Text('123');
-        }else{
-            return _historySearchWidget();
-        }
+        return Expanded(
+            child: AnimatedSwitcher(
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                    var tween;
+                    if(_searchState){
+                        tween = Tween<Offset>(begin: Offset(1, 0), end: Offset(0, 0));
+                    }else{
+                        tween = Tween<Offset>(begin: Offset(-1, 0), end: Offset(0, 0));
+                    }
+                    return SlideAnimationWidget(
+                        child: child,
+                        position: tween.animate(animation),
+                    );
+                },
+                duration: Duration(milliseconds: 300),
+                child: _searchState ? _searchResultWidget() : _historySearchWidget(),
+            ),
+        );
     }
 
     @override
@@ -162,12 +191,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
             appBar: AppBar(
                 elevation: 0.0,
                 title: AppBarTextWidget(title: '添加商品'),
-                actions: <Widget>[
-                    NavigatorRightButtonWidget(
-                        text: '确认',
-                        onTap: (){},
-                    )
-                ],
             ),
             body: Column(
                 children: <Widget>[
@@ -179,10 +202,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
         );
     }
 
-    //实时更新搜索值
-    _changeSearchVaule(val){
-        setState((){
-            _searchValue = val;
+    //提交搜索
+    _submitSearchVaule(val){
+        setState(() {
+            _searchState = val == '' ? false : true;
         });
     }
 }
