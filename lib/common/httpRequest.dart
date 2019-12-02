@@ -26,6 +26,7 @@ class HttpRequest{
             errorResponse = error;
         }
 
+        await Future.delayed(Duration(seconds: 2));
         if(successCallback != null && response != null){
             successCallback(response.data);
         }

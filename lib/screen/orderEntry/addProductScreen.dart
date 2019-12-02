@@ -76,37 +76,40 @@ class _AddProductScreenState extends State<AddProductScreen> {
         List<Widget> _searchListWidget = [];
         for (var item in _searchList) {
             _searchListWidget.add(
-                PlatformTapWidget(
-                    onTap: (){
-                        _clickSearchItem(item);
-                    },
-                    child: Padding(
-                        padding: EdgeInsets.only(
-                            right: UISize.width(24),
-                            bottom: UISize.width(24)
-                        ),
-                        child: Container(
+                Container(
+                    height: UISize.width(70),
+                    child: PlatformTapWidget(
+                        onTap: (){
+                            _clickSearchItem(item);
+                        },
+                        child: Padding(
                             padding: EdgeInsets.only(
-                                left: UISize.width(12),
-                                right: UISize.width(12),
-                                top: UISize.width(8),
-                                bottom: UISize.width(8)
+                                right: UISize.width(24),
+                                bottom: UISize.width(24)
                             ),
-                            decoration: BoxDecoration(
-                                color: Color(0xffe0e4e6),
-                                borderRadius: BorderRadius.all(Radius.circular(UISize.width(8)))
-                            ),
-                            child: Text(
-                                item,
-                                style: TextStyle(
-                                    fontSize: UISize.size(24),
-                                    color: Color(0xff333333)
+                            child: Container(
+                                padding: EdgeInsets.only(
+                                    left: UISize.width(12),
+                                    right: UISize.width(12),
+                                    top: UISize.width(8),
+                                    bottom: UISize.width(8)
+                                ),
+                                decoration: BoxDecoration(
+                                    color: Color(0xffe0e4e6),
+                                    borderRadius: BorderRadius.all(Radius.circular(UISize.width(8)))
+                                ),
+                                child: Text(
+                                    item,
+                                    style: TextStyle(
+                                        fontSize: UISize.size(24),
+                                        color: Color(0xff333333)
+                                    ),
                                 ),
                             ),
-                        ),
+                        )
                     )
                 )
-                ); 
+            ); 
         }
         return _searchListWidget;
     }
@@ -242,13 +245,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
             await SearchListStorage.setData(_controller.text);
             _searchList = await SearchListStorage.getData();
         }
-        if(_searchState){
-            refreshKey.currentState.callRefresh();
-        }
         setState(() {
             _searchList = _searchList;
             _searchState = _controller.text == '' ? false : true;
         });
+
+        //在搜索页面继续搜索
+        if(_searchState && _controller.text != ''){
+            refreshKey.currentState.callRefresh();
+        }
     }
 
     //删除所有历史搜索
