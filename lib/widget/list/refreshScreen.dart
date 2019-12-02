@@ -6,6 +6,7 @@ import 'package:kjt_bsp/widget/layout/firstLoadingWidget.dart';
 /*
  * 上拉加载下拉刷新组件
  */
+GlobalKey<_RefreshListState> refreshKey = GlobalKey();
 class RefreshList extends StatefulWidget {
     final Function child;               //列表item
     final Function onRefresh;           //下拉刷新
@@ -147,5 +148,10 @@ class _RefreshListState extends State<RefreshList> {
         });
         //请求成功页码加一
         _pageIndex++;
+    }
+
+    //触发下拉刷新
+    callRefresh(){
+        _controller.callRefresh();
     }
 }

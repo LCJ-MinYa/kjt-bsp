@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:kjt_bsp/common/toast.dart';
 import 'package:kjt_bsp/controller/order.dart';
+import 'package:kjt_bsp/storage/searchList.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/animation/slideAnimationWidget.dart';
 import 'package:kjt_bsp/widget/cell/containerCellWidget.dart';
 import 'package:kjt_bsp/widget/input/textFieldWidget.dart';
 import 'package:kjt_bsp/widget/list/refreshScreen.dart';
+import 'package:kjt_bsp/widget/popup/alertDialog.dart';
+import 'package:kjt_bsp/widget/tap/platformTapWidget.dart';
 import 'package:kjt_bsp/widget/text/appBarTextWidget.dart';
 
 class AddProductScreen extends StatefulWidget {
@@ -13,22 +17,15 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
+    TextEditingController _controller = TextEditingController();
     bool _searchState = false;
-    String _searchValue = '';
-    List _searchList = [
-        '口红',
-        '狗粮',
-        '爽肤水',
-        '防晒霜',
-        '太阳眼镜',
-        '科颜氏精华50ML',
-        '口红',
-        '狗粮',
-        '爽肤水',
-        '防晒霜',
-        '太阳眼镜',
-        '科颜氏精华50ML'
-    ];
+    List _searchList = [];
+
+    @override
+    void initState() {
+        super.initState();
+        _getSearchList();
+    }
 
     /* 搜索框 */
     Widget _searchWidget(){
@@ -61,6 +58,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                 ),
                             ),
                             TextFieldWidget(
+                                controller: _controller,
                                 hintText: '搜索商品名称',
                                 fontSize: 24,
                                 onSubmitted: _submitSearchVaule,
@@ -78,32 +76,37 @@ class _AddProductScreenState extends State<AddProductScreen> {
         List<Widget> _searchListWidget = [];
         for (var item in _searchList) {
             _searchListWidget.add(
-                Padding(
-                    padding: EdgeInsets.only(
-                        right: UISize.width(24),
-                        bottom: UISize.width(24)
-                    ),
-                    child: Container(
+                PlatformTapWidget(
+                    onTap: (){
+                        _clickSearchItem(item);
+                    },
+                    child: Padding(
                         padding: EdgeInsets.only(
-                            left: UISize.width(12),
-                            right: UISize.width(12),
-                            top: UISize.width(8),
-                            bottom: UISize.width(8)
+                            right: UISize.width(24),
+                            bottom: UISize.width(24)
                         ),
-                        decoration: BoxDecoration(
-                            color: Color(0xffe0e4e6),
-                            borderRadius: BorderRadius.all(Radius.circular(UISize.width(8)))
-                        ),
-                        child: Text(
-                            item,
-                            style: TextStyle(
-                                fontSize: UISize.size(24),
-                                color: Color(0xff333333)
+                        child: Container(
+                            padding: EdgeInsets.only(
+                                left: UISize.width(12),
+                                right: UISize.width(12),
+                                top: UISize.width(8),
+                                bottom: UISize.width(8)
+                            ),
+                            decoration: BoxDecoration(
+                                color: Color(0xffe0e4e6),
+                                borderRadius: BorderRadius.all(Radius.circular(UISize.width(8)))
+                            ),
+                            child: Text(
+                                item,
+                                style: TextStyle(
+                                    fontSize: UISize.size(24),
+                                    color: Color(0xff333333)
+                                ),
                             ),
                         ),
-                    ),
+                    )
                 )
-            ); 
+                ); 
         }
         return _searchListWidget;
     }
@@ -126,11 +129,19 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                         fontSize: UISize.size(28)
                                     ),
                                 ),
-                                Icon(
-                                    Icons.delete,
-                                    color: Color(0xffb3b3b3),
-                                    size: UISize.size(36),
-                                )
+                                Container(
+                                    width: UISize.width(32),
+                                    height: UISize.width(32),
+                                    alignment: Alignment.center,
+                                    child: PlatformTapWidget(
+                                        onTap: _removeSearchList,
+                                        child: Icon(
+                                            Icons.delete,
+                                            color: Color(0xffb3b3b3),
+                                            size: UISize.size(36),
+                                        ),
+                                    )
+                                ),
                             ],
                         ),            
                     ),
@@ -161,10 +172,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
     /* 搜索结果 */
     Widget _searchResultWidget(){
         return RefreshList(
+            key: refreshKey,
             child: _productItemWidget,
             onRefresh: searchProduct,
             params: {
-                "searchValue": _searchValue
+                "searchValue": _controller.text
             },
         );
     }
@@ -208,17 +220,56 @@ class _AddProductScreenState extends State<AddProductScreen> {
         );
     }
 
-    //实时更新输入值
-    _changeSearchVaule(val){
+    _getSearchList() async{
+        var list = await SearchListStorage.getData();
         setState(() {
-            _searchValue = val;
+            _searchList = list;
         });
     }
 
-    //提交搜索
-    _submitSearchVaule(val){
+    //实时更新输入值
+    _changeSearchVaule(val){
         setState(() {
-            _searchState = val == '' ? false : true;
+            _controller.text = val.trim();
+        });
+        //每次修改内容的时候需要再手动修改selection
+        _controller.selection = TextSelection.fromPosition(TextPosition(offset: _controller.text.length));
+    }
+
+    //提交搜索
+    _submitSearchVaule(val) async{
+        if(_controller.text != ''){
+            await SearchListStorage.setData(_controller.text);
+            _searchList = await SearchListStorage.getData();
+        }
+        if(_searchState){
+            refreshKey.currentState.callRefresh();
+        }
+        setState(() {
+            _searchList = _searchList;
+            _searchState = _controller.text == '' ? false : true;
+        });
+    }
+
+    //删除所有历史搜索
+    _removeSearchList() {
+        if(_searchList.length == 0){
+            toast('没有更多历史搜索可以删除啦~');
+            return;
+        }
+        showAlertDialog(context, '删除记录', '确认删除历史搜索吗?', () async{
+            await SearchListStorage.removeData();
+            setState(() {
+                _searchList = [];
+            });
+        });
+    }
+
+    //点击单个历史搜索记录
+    _clickSearchItem(item){
+        setState(() {
+            _controller.text = item;
+            _searchState = true;
         });
     }
 }

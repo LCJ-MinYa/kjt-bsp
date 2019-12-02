@@ -15,6 +15,7 @@ class TextFieldWidget extends StatefulWidget {
     final Function onSubmitted;             //提交回调
     final double rightIconMargin;           //右侧icon距离右边距离 => 默认15dp
     final double fontSize;                  //字体大小 => 默认15dp
+    final TextEditingController controller; //controller
 
     TextFieldWidget({
         Key key,
@@ -26,7 +27,8 @@ class TextFieldWidget extends StatefulWidget {
         this.onChanged,
         this.onSubmitted,
         this.rightIconMargin = 30,
-        this.fontSize = 30
+        this.fontSize = 30,
+        this.controller,
     }) : super(key: key);
 
     @override
@@ -57,6 +59,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                             height: double.infinity,
                             alignment: Alignment.centerLeft,
                             child: TextField(
+                                controller: widget.controller,
                                 maxLength: widget.maxLength,
                                 decoration: InputDecoration(
                                     hintText: widget.hintText,
