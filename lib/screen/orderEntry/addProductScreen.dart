@@ -255,15 +255,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
             await SearchListStorage.setData(_controller.text);
             _searchList = await SearchListStorage.getData();
         }
-        setState(() {
-            _searchList = _searchList;
-            _searchState = _controller.text == '' ? false : true;
-        });
-
         //在搜索页面继续搜索
         if(_searchState && _controller.text != ''){
             refreshKey.currentState.callRefresh();
         }
+
+        setState(() {
+            _searchList = _searchList;
+            _searchState = _controller.text == '' ? false : true;
+        });
     }
 
     //删除所有历史搜索

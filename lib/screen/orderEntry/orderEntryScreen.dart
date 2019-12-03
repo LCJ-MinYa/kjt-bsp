@@ -55,7 +55,23 @@ class _OrderEntryScreenState extends State<OrderEntryScreen> {
         Widget _productContent;
         for (var item in _productList) {
             _productListWidget.add(
-                ProductItemWidget(productItemData: item)  
+                ProductItemWidget(
+                    productItemData: item,
+                    reduceNum: (){
+                        if(item['num'] > 1){
+                            setState(() {
+                                item['num'] -= 1;
+                            });
+                        }
+                    },
+                    addNum: (){
+                        if(item['num'] < 100){
+                            setState(() {
+                                item['num'] += 1;
+                            });
+                        }      
+                    },
+                )  
             );
         }
 
@@ -142,6 +158,14 @@ class _OrderEntryScreenState extends State<OrderEntryScreen> {
     }
 
     addProductCallback(item){
+        //如果已有相同商品，则不添加
+        var hasAdd = _productList.any((product){
+            return product['productId'] == item['productId'];
+        });
+        if(hasAdd){
+            return;
+        }
+        item['num'] = 1;
         setState(() {
             _productList.add(item);
         });
