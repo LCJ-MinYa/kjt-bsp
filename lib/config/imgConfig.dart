@@ -45,4 +45,5 @@ class ImgConfig{
     static final String orderPaid = _hasOrderImgurl('paid.png');
     static final String orderInvalid = _hasOrderImgurl('invalid.png');
     static final String orderNo = _hasOrderImgurl('orderNo.png');
+    static final String orderProduct = _hasOrderImgurl('product.png');
 }

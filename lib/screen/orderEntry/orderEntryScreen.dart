@@ -5,6 +5,7 @@ import 'package:kjt_bsp/widget/cell/containerCellWidget.dart';
 import 'package:kjt_bsp/widget/cell/nameCellWidget.dart';
 import 'package:kjt_bsp/widget/cell/textFieldCellWidget.dart';
 import 'package:kjt_bsp/widget/cell/titleWithNameCellWidget.dart';
+import 'package:kjt_bsp/widget/order/productItemWidget.dart';
 import 'package:kjt_bsp/widget/tap/platformTapWidget.dart';
 import 'package:kjt_bsp/widget/text/appBarTextWidget.dart';
 
@@ -14,11 +15,19 @@ class OrderEntryScreen extends StatefulWidget {
 }
 
 class _OrderEntryScreenState extends State<OrderEntryScreen> {
+    List _productList = [];
+
     /* 添加商品按钮 */
     Widget _addProductActionWidget(){
         return PlatformTapWidget(
             onTap: (){
-                Navigator.pushNamed(context, '/addProduct');
+                Navigator.pushNamed(
+                    context,
+                    '/addProduct',
+                    arguments: {
+                        'callback': addProductCallback
+                    }
+                );
             },
             child: ContainerCellWidget(
                 child: Row(
@@ -38,6 +47,22 @@ class _OrderEntryScreenState extends State<OrderEntryScreen> {
                 ),
             ),
         );
+    }
+
+    /* 已添加商品列表 */
+    Widget _productWidget(){
+        List<Widget> _productListWidget = [];
+        Widget _productContent;
+        for (var item in _productList) {
+            _productListWidget.add(
+                ProductItemWidget(productItemData: item)  
+            );
+        }
+
+        _productContent = Column(
+            children: _productListWidget,
+        );
+        return _productContent; 
     }
 
     @override
@@ -75,6 +100,7 @@ class _OrderEntryScreenState extends State<OrderEntryScreen> {
                     ),
                     TitleWithNameCellWidget(title: '订单信息'),
                     _addProductActionWidget(),
+                    _productWidget(),
                     TitleWithNameCellWidget(title: '订单配送信息'),
                     TextFieldCellWidget(
                         title: '姓名',
@@ -113,5 +139,11 @@ class _OrderEntryScreenState extends State<OrderEntryScreen> {
                 ],
             ),
         );
+    }
+
+    addProductCallback(item){
+        setState(() {
+            _productList.add(item);
+        });
     }
 }

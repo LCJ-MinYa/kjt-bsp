@@ -34,7 +34,7 @@ class RouteConfig{
         '/modifyPwd': (BuildContext context) => ModifyPwdScreen(),
         '/orderDetail': (BuildContext context, {arguments}) => OrderDetailScreen(arguments: arguments),
         '/orderEntry': (BuildContext context) => OrderEntryScreen(),
-        '/addProduct': (BuildContext context) => AddProductScreen(),
+        '/addProduct': (BuildContext context, {arguments}) => AddProductScreen(arguments: arguments),
     };
 
     static Route<dynamic> onGenerateRoute(RouteSettings settings){

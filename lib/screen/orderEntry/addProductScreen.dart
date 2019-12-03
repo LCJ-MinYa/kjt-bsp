@@ -7,11 +7,16 @@ import 'package:kjt_bsp/widget/animation/slideAnimationWidget.dart';
 import 'package:kjt_bsp/widget/cell/containerCellWidget.dart';
 import 'package:kjt_bsp/widget/input/textFieldWidget.dart';
 import 'package:kjt_bsp/widget/list/refreshScreen.dart';
+import 'package:kjt_bsp/widget/order/productItemWidget.dart';
 import 'package:kjt_bsp/widget/popup/alertDialog.dart';
 import 'package:kjt_bsp/widget/tap/platformTapWidget.dart';
 import 'package:kjt_bsp/widget/text/appBarTextWidget.dart';
 
 class AddProductScreen extends StatefulWidget {
+    final Map arguments;
+
+    AddProductScreen({Key key, this.arguments}) : super(key: key);
+
     @override
     _AddProductScreenState createState() => _AddProductScreenState();
 }
@@ -167,8 +172,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
     /* 搜索结果item */
     Widget _productItemWidget(item, index){
-        return ContainerCellWidget(
-            child: Text(item['productName']),
+        return ProductItemWidget(
+            productItemData: item,
+            index: index,
+            onTap: (){
+                widget.arguments['callback'](item);
+                Navigator.pop(context);
+            },
         );
     }
 
