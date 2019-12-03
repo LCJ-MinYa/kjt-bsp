@@ -1,3 +1,4 @@
+import 'package:city_pickers/city_pickers.dart';
 import 'package:flutter/material.dart';
 import 'package:kjt_bsp/styles/uiSize.dart';
 import 'package:kjt_bsp/widget/button/navigatorRightButtonWidget.dart';
@@ -129,7 +130,19 @@ class _OrderEntryScreenState extends State<OrderEntryScreen> {
                     NameCellWidget(
                         title: '所在地区',
                         value: '请选择',
-                        onTap: (){},
+                        onTap: () async{
+                            Result result = await CityPickers.showCityPicker(
+                                context: context,
+                                height: UISize.width(500),
+                                itemExtent: UISize.width(80),
+                                itemBuilder: (item, list, index){
+                                    return Center(
+                                        child: Text(item, maxLines: 1, style: TextStyle(fontSize: UISize.size(28))),
+                                    );
+                                }
+                            );
+                            print(result);
+                        },
                     ),
                     TextFieldCellWidget(
                         title: '详细地址',
